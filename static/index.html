@@ -1,9 +1,35 @@
 <!DOCTYPE html>
+<!--
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
 <html>
 <head>
-    <title>Face App</title>
+    <title>FaceApp</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <script type="text/javascript" src="js/ccv.js"></script>
+    <script type="text/javascript" src="js/face.js"></script>
+
+    <!-- Load the polyfill to switch-hit between Chrome and Firefox -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+    <script type="text/javascript" src="js/common.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script type="text/javascript" src="app.js"></script>
 </head>
 <body>
-    <h1>Hello Face App</h1>
+    <div id="panelDiv">
+        <video id="localVideo" autoplay muted></video>
+        <canvas id="localCanvas"></canvas>
+    </div>
+    <div id="otherDiv">
+        <button onclick="takeSnapshotBtuuon_click()">Take snapshot</button>
+        <canvas id="snapshotCanvas"></canvas>
+    </div>
 </body>
 </html>
