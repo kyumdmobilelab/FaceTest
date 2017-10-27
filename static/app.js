@@ -121,6 +121,7 @@ function againDetectBtuuon_click() {
     document.getElementById('progressDiv').style.display = 'none';
     document.getElementById('otherDiv').style.display = 'none';
     document.getElementById('resultDiv').style.display = 'none';
+    document.getElementById('frameDiv').style.borderWidth = '0px';
 }
 
 
@@ -157,6 +158,12 @@ function showResultValues() {
     document.getElementById('neutralValue').innerText = "中立指數: " + emotionInfo["neutral"];
     document.getElementById('sadnessValue').innerText = "悲傷指數: " + emotionInfo["sadness"];
     document.getElementById('surpriseValue').innerText = "驚訝指數: " + emotionInfo["surprise"];
+
+    //--------
+    
+
+
+
 }
 
 //------------------------------------------
@@ -214,6 +221,7 @@ function processImage(imageBlob) {
         document.getElementById('progressDiv').style.display = 'none';
         document.getElementById('resultDiv').style.display = 'block';
         document.getElementById('otherMsgTitle').style.display = 'block';
+        document.getElementById('frameDiv').style.borderWidth = '1px';
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
         // Display error message.
@@ -225,4 +233,16 @@ function processImage(imageBlob) {
 }
 
 //------------------------------------------
+
+
+//------------------------------------------
+//----------------- Data -------------------
+//------------------------------------------
+
+function analysisData(data) {
+
+}
+
+
+
 

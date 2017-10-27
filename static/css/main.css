@@ -67,13 +67,21 @@ body {
     width: 100px;
 }
 
+#frameDiv {
+    width: 500px;
+    border: 0px solid rgb(189, 189, 189);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
 #otherMsgTitle {
     clear: both;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 25px;
+    margin-bottom: 25px;
     font-weight: bold;
     font-size: 1.5em;
 }
@@ -93,6 +101,7 @@ body {
     position: relative;
     width: 500px;
     margin-top: 60px;
+    margin-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
     font-size: 1.0em;
@@ -102,6 +111,7 @@ body {
     clear: both;
     float: right;
     margin-top: 30px;
+    margin-bottom: 50px;
     margin-right: 0px;
     font-size: 1.0em;
     width: 100px;

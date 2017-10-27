@@ -32,31 +32,32 @@
         <canvas id="localCanvas"></canvas>
         <button id="takeSnapshotBtuuon" onclick="takeSnapshotBtuuon_click()">臉部分析</button>
     </div>
-    <div id="otherDiv" style="display:none;">
-        <div id="otherMsgTitle">[ 分析結果 ]</div>
-        <img id="faceImage" />
-    </div>
-    
-    <div id="resultDiv" style="display:none;">
-        <div style="clear:both; position: relative; margin-top:15px; margin-bottom:30px; height:50px; ">
-            <div id="genderValue" class="basicProperty" style="float:left; font-weight:bold; font-size:2.5em;position: absolute; top:0px; left:95px;"></div>
-            <div id="ageValue"  class="basicProperty" style="float:right; font-weight:bold; font-size:2.5em;position: absolute; top:0px; right:80px;"></div>
+    <div id="frameDiv">
+        <div id="otherDiv" style="display:none;">
+            <div id="otherMsgTitle">[ 分析結果 ]</div>
+            <img id="faceImage" />
         </div>
-        <div style="clear:both; margin-top:30px; margin-bottom:30px;">
-            <div id="glassesValue" class="resultText"></div>
-            <div id="smileValue" class="resultText"></div>
-            <div id="angerValue" class="resultText"></div>
-            <div id="contemptValue" class="resultText"></div>
-            <div id="disgustValue" class="resultText"></div>
-            <div id="fearValue" class="resultText"></div>
-            <div id="happinessValue" class="resultText"></div>
-            <div id="neutralValue" class="resultText"></div>
-            <div id="sadnessValue" class="resultText"></div>
-            <div id="surpriseValue" class="resultText"></div>
+        <div id="resultDiv" style="display:none;">
+            <div style="clear:both; position: relative; margin-top:15px; margin-bottom:30px; height:50px; ">
+                <div id="genderValue" class="basicProperty" style="float:left; font-weight:bold; font-size:2.5em;position: absolute; top:0px; left:95px;"></div>
+                <div id="ageValue"  class="basicProperty" style="float:right; font-weight:bold; font-size:2.5em;position: absolute; top:0px; right:80px;"></div>
+            </div>
+            <div style="clear:both; margin-top:30px; margin-bottom:30px;">
+                <div id="glassesValue" class="resultText"></div>
+                <div id="smileValue" class="resultText"></div>
+                <div id="angerValue" class="resultText"></div>
+                <div id="contemptValue" class="resultText"></div>
+                <div id="disgustValue" class="resultText"></div>
+                <div id="fearValue" class="resultText"></div>
+                <div id="happinessValue" class="resultText"></div>
+                <div id="neutralValue" class="resultText"></div>
+                <div id="sadnessValue" class="resultText"></div>
+                <div id="surpriseValue" class="resultText"></div>
+            </div>
+            <button id="againDetectBtuuon" onclick="againDetectBtuuon_click()">重新分析</button>
         </div>
-        <button id="againDetectBtuuon" onclick="againDetectBtuuon_click()">重新分析</button>
     </div>
-    <div id="jsonOutput" style="width:600px; display:table-cell;">
+    <div id="jsonOutput" style="width:600px; display:none;">
         Response:
         <br><br>
         <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
