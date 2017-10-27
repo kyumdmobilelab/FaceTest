@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<!--
- *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
--->
 <html>
 <head>
     <title>FaceApp</title>
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
     <script type="text/javascript" src="js/ccv.js"></script>
     <script type="text/javascript" src="js/face.js"></script>
-
     <!-- Load the polyfill to switch-hit between Chrome and Firefox -->
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
@@ -23,13 +17,50 @@
     <script type="text/javascript" src="app.js"></script>
 </head>
 <body>
+    <div id="titleDiv">
+        <div style="font-size:2.2em; font-weight:bold;">高苑面相館</div>
+        <div style="font-size:0.9em; float: right;">不準不要錢</div><br />
+        <hr />
+    </div>
+    <div id="progressDiv" style="display:none;">
+        <div style="text-align:center; margin-left:auto; margin-right:auto; margin-top:20px; margin-bottom:20px;">分析中...</div>
+        <img style="margin-left:auto; margin-right:auto; display:block; margin-top:20px; margin-bottom:20px;" src="images/ajax-loader.gif"/>
+        <br>
+    </div>
     <div id="panelDiv">
         <video id="localVideo" autoplay muted></video>
         <canvas id="localCanvas"></canvas>
+        <button id="takeSnapshotBtuuon" onclick="takeSnapshotBtuuon_click()">臉部分析</button>
     </div>
-    <div id="otherDiv">
-        <button onclick="takeSnapshotBtuuon_click()">Take snapshot</button>
-        <canvas id="snapshotCanvas"></canvas>
+    <div id="otherDiv" style="display:none;">
+        <div id="otherMsgTitle">[分析結果]</div>
+        <img id="faceImage" />
     </div>
+    
+    <div id="resultDiv" style="display:none;">
+        <div style="clear:both; position: relative; margin-top:15px; margin-bottom:30px; height:50px; ">
+            <div id="genderValue" class="basicProperty" style="float:left; font-weight:bold; font-size:2.5em;position: absolute; top:0px; left:95px;"></div>
+            <div id="ageValue"  class="basicProperty" style="float:right; font-weight:bold; font-size:2.5em;position: absolute; top:0px; right:80px;"></div>
+        </div>
+        <div style="clear:both; margin-top:30px; margin-bottom:30px;">
+            <div id="glassesValue" class="resultText"></div>
+            <div id="smileValue" class="resultText"></div>
+            <div id="angerValue" class="resultText"></div>
+            <div id="contemptValue" class="resultText"></div>
+            <div id="disgustValue" class="resultText"></div>
+            <div id="fearValue" class="resultText"></div>
+            <div id="happinessValue" class="resultText"></div>
+            <div id="neutralValue" class="resultText"></div>
+            <div id="sadnessValue" class="resultText"></div>
+            <div id="surpriseValue" class="resultText"></div>
+        </div>
+        <button id="againDetectBtuuon" onclick="againDetectBtuuon_click()">重新分析</button>
+    </div>
+    <div id="jsonOutput" style="width:600px; display:table-cell;">
+        Response:
+        <br><br>
+        <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
+    </div>
+    
 </body>
 </html>
