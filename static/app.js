@@ -160,11 +160,25 @@ function showResultValues() {
     document.getElementById('surpriseValue').innerText = "驚訝指數: " + emotionInfo["surprise"];
 
     //--------
-    
+    let aData = {
+        "gender" : info["gender"],
+        "age" : info["age"],
+        "smile" : info["smile"],
+        "glasses" : info['glasses'],
+        "anger" : emotionInfo["anger"],
+        "contempt" : emotionInfo["contempt"],
+        "disgust" : emotionInfo["disgust"],
+        "fear" : emotionInfo["fear"],
+        "happiness" : emotionInfo["happiness"],
+        "neutral" : emotionInfo["neutral"],
+        "sadness" : emotionInfo["sadness"],
+        "surprise" : emotionInfo["surprise"]
+    };
 
-
+    analysisData(aData);
 
 }
+
 
 //------------------------------------------
 //--------------- Face API -----------------
@@ -235,14 +249,89 @@ function processImage(imageBlob) {
 //------------------------------------------
 
 
-//------------------------------------------
-//----------------- Data -------------------
-//------------------------------------------
+//----------------------------------------------------
+//---------------------- Data ------------------------
+// aData = {
+//     "gender"    : 性別
+//     "age"       : 年齡
+//     "smile"     : 微笑
+//     "glasses"   : 眼鏡
+//     "anger"     : 憤怒
+//     "contempt"  : 鄙視
+//     "disgust"   : 嫌惡
+//     "fear"      : 恐懼
+//     "happiness" : 幸福
+//     "neutral"   : 中立
+//     "sadness"   : 悲傷
+//     "surprise"  : 驚訝
+// }
 
 function analysisData(data) {
-
+    if (data["gender"] === "male") {
+        analysisMale(data);
+    } else if (data["gender"] === "female") {
+        analysisFemale(data);
+    }
 }
 
+function analysisMale(data) {
+    if (data["age"] > 40) {
+        // 新潮大叔、黑社會大哥、大老闆
+        if (data["sadness"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱大叔&nbsp;";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;黑社會大哥&nbsp;";
+        } else if (data["glasses"] === "ReadingGlasses") {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;大老闆&nbsp;";
+        } else if (data["smile"] > 0.2) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大叔&nbsp;";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;雜魚大叔&nbsp;";
+        }
+    } else {
+        // 憂鬱小生、陽光大男孩、文青
+        if (data["sadness"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱小生&nbsp;";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;帥氣青年&nbsp;";
+        } else if (data["glasses"] === "ReadingGlasses") {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;文青&nbsp;";
+        } else if (data["smile"] > 0.2) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大男孩&nbsp;";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;雜魚小弟&nbsp;";
+        }
+    }
+}
 
+function analysisFemale(data) {
+    if (data["age"] > 40) {
+        // 新潮美魔女、黑社會大姐頭、女強人
+        if (data["sadness"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱阿姨&nbsp;";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;新潮美魔女&nbsp;";
+        } else if (data["glasses"] === "ReadingGlasses") {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;女強人&nbsp;";
+        } else if (data["smile"] > 0.2) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大嬸&nbsp;";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;雜魚大姊&nbsp;";
+        }
+    } else {
+        // 多愁少女、妙齡美少女、文藝少女
+        if (data["sadness"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;多愁少女&nbsp;";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;前衛少女&nbsp;";
+        } else if (data["glasses"] === "ReadingGlasses") {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;文藝少女&nbsp;";
+        } else if (data["smile"] > 0.2) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;妙齡美少女&nbsp;";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;雜魚妹妹&nbsp;";
+        }
+    }
+}
 
 

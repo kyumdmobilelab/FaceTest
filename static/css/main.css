@@ -100,7 +100,7 @@ body {
 #resultDiv {
     position: relative;
     width: 500px;
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -119,6 +119,7 @@ body {
 
 .resultText {
     margin-left: 50px;
+    clear: both;
 }
 
 .basicProperty {
@@ -126,4 +127,16 @@ body {
     border: 3px solid #EAC100;
     border-radius: 12%;
     color: #977C00;
+}
+
+.analysisText {
+    clear: both;
+    background-color: #ff7575;
+    border: 3px solid #AE0000;
+    border-radius: 12%;
+    color: #750000; 
+    font-weight:bold; 
+    font-size:2.0em;
+    margin-left: 95px;
+    float: left;
 }

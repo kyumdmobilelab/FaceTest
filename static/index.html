@@ -28,7 +28,7 @@
         <br>
     </div>
     <div id="panelDiv">
-        <video id="localVideo" autoplay muted></video>
+        <video id="localVideo" autoplay playsinline muted></video>
         <canvas id="localCanvas"></canvas>
         <button id="takeSnapshotBtuuon" onclick="takeSnapshotBtuuon_click()">臉部分析</button>
     </div>
@@ -40,9 +40,11 @@
         <div id="resultDiv" style="display:none;">
             <div style="clear:both; position: relative; margin-top:15px; margin-bottom:30px; height:50px; ">
                 <div id="genderValue" class="basicProperty" style="float:left; font-weight:bold; font-size:2.5em;position: absolute; top:0px; left:95px;"></div>
-                <div id="ageValue"  class="basicProperty" style="float:right; font-weight:bold; font-size:2.5em;position: absolute; top:0px; right:80px;"></div>
+                <div id="ageValue"  class="basicProperty" style="float:right; font-weight:bold; font-size:2.5em;position: absolute; top:0px; right:90px;"></div>
             </div>
-            <div style="clear:both; margin-top:30px; margin-bottom:30px;">
+            <div style="clear:both; margin-top:50px; margin-bottom:30px;">
+                <div id="analysisTitle" class="analysisText"></div>
+
                 <div id="glassesValue" class="resultText"></div>
                 <div id="smileValue" class="resultText"></div>
                 <div id="angerValue" class="resultText"></div>
