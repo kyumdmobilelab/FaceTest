@@ -114,5 +114,6 @@ body {
 .basicProperty {
     background-color: #FFE153;
     border: 3px solid #EAC100;
-    border-radius: 10%;
+    border-radius: 12%;
+    color: #977C00;
 }
