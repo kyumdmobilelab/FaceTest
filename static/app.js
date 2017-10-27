@@ -176,7 +176,6 @@ function showResultValues() {
     };
 
     analysisData(aData);
-
 }
 
 

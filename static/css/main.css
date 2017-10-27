@@ -130,13 +130,11 @@ body {
 }
 
 .analysisText {
-    clear: both;
     background-color: #ff7575;
     border: 3px solid #AE0000;
     border-radius: 12%;
     color: #750000; 
     font-weight:bold; 
     font-size:2.0em;
-    margin-left: 95px;
     float: left;
 }
