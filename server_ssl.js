@@ -1,4 +1,4 @@
-var https    = require("https");              // http server core module
+var http    = require("http");              // http server core module
 var express = require("express");           // web framework external module
 var serveStatic = require('serve-static');  // serve static files
 
@@ -8,7 +8,7 @@ var app = express();
 app.use(serveStatic('static', {'index': ['index.html']}));
 
 // Start Express http server on port 443
-var webServer = https.createServer({}, app).listen(process.env.PORT);
+var webServer = http.createServer(app).listen(process.env.PORT);
 
 //listen on port 443
 webServer.listen(process.env.PORT, function () {
