@@ -111,7 +111,7 @@ function takeSnapshotBtuuon_click() {
     context.canvas.toBlob(function(blob) {
         setTimeout(function(){
             processImage(blob);
-        }, 1000);
+        }, 500);
     });
 }
 
@@ -122,11 +122,32 @@ function againDetectBtuuon_click() {
     document.getElementById('otherDiv').style.display = 'none';
     document.getElementById('resultDiv').style.display = 'none';
     document.getElementById('frameDiv').style.borderWidth = '0px';
+    document.getElementById('againDetectBtuuon').style.display = 'none';
 }
 
 
 function showResultValues() {
+    if (!resultJSON) {
+        document.getElementById('otherMsgTitle').innerText = "[ 分析失敗!! ]";
+        document.getElementById('otherMsgTitle').style.display = 'block';
+        document.getElementById('progressDiv').style.display = 'none';
+        document.getElementById('againDetectBtuuon').style.display = 'block';
+        return;
+    }
+
     let info = resultJSON["faceAttributes"];
+
+    if (info) {
+        document.getElementById('otherMsgTitle').innerText = "[ 分析結果 ]";
+    } else {
+        document.getElementById('otherMsgTitle').innerText = "[ 分析失敗!! ]";
+        document.getElementById('otherMsgTitle').style.display = 'block';
+        document.getElementById('progressDiv').style.display = 'none';
+        document.getElementById('againDetectBtuuon').style.display = 'block';
+        return;
+    }
+
+
     document.getElementById('smileValue').innerText = "微笑指數: " + info["smile"];
 
     let gender = info["gender"];
@@ -176,6 +197,12 @@ function showResultValues() {
     };
 
     analysisData(aData);
+
+    document.getElementById('progressDiv').style.display = 'none';
+    document.getElementById('resultDiv').style.display = 'block';
+    document.getElementById('otherMsgTitle').style.display = 'block';
+    document.getElementById('frameDiv').style.borderWidth = '1px';
+    document.getElementById('againDetectBtuuon').style.display = 'block';
 }
 
 
@@ -230,11 +257,6 @@ function processImage(imageBlob) {
 
         resultJSON = data[0];
         showResultValues();
-
-        document.getElementById('progressDiv').style.display = 'none';
-        document.getElementById('resultDiv').style.display = 'block';
-        document.getElementById('otherMsgTitle').style.display = 'block';
-        document.getElementById('frameDiv').style.borderWidth = '1px';
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
         // Display error message.
@@ -242,6 +264,11 @@ function processImage(imageBlob) {
         errorString += (jqXHR.responseText === "") ? "" : (jQuery.parseJSON(jqXHR.responseText).message) ? 
             jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
         console.log(errorString);
+
+        document.getElementById('otherMsgTitle').innerText = "[ 分析失敗!! ]";
+        document.getElementById('otherMsgTitle').style.display = 'block';
+        document.getElementById('progressDiv').style.display = 'none';
+        document.getElementById('againDetectBtuuon').style.display = 'block';
     });
 }
 
