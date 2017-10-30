@@ -67,7 +67,7 @@ poll = function() {
         ctx2.strokeStyle = "rgb(255,0,0)";
         ctx2.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
     }
-    setTimeout(poll, 1000);
+    //setTimeout(poll, 1000);
 }
 
 onGotStream = function(stream) {
@@ -122,6 +122,7 @@ function handleError(error) {
     console.log('navigator.getUserMedia error: ', error);
 }
 
+var pollTimerId = null;
 
 function gotStream(stream) {
     //var videoElement = document.getElementById('localVideo');
@@ -131,7 +132,12 @@ function gotStream(stream) {
     localVideo.style.opacity = 1;
     localVideo.srcObject = stream;
     localStream = stream;
-    setTimeout(poll, 1500);
+    //setTimeout(poll, 1500);
+
+    if (pollTimerId) {
+        clearInterval(pollTimerId);
+    }
+    pollTimerId = setInterval(poll, 1000);
 
     // Refresh button list in case labels have become available
     return navigator.mediaDevices.enumerateDevices();
