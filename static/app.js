@@ -1,6 +1,6 @@
 
-var localVideo;
-var localCanvas;
+var localVideo = document.getElementById("localVideo");
+var localCanvas = document.getElementById("localCanvas");
 
 /*
 initialize = function() {
@@ -152,15 +152,9 @@ function start() {
 
 
     //-----------------------
-    localVideo = document.getElementById("localVideo");
-    localCanvas = document.getElementById("localCanvas");
-    try {
-        navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+    navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 
-        //navigator.getUserMedia(constraints, onGotStream, onFailedStream);
-    } catch (e) {
-        alert("getUserMedia error " + e);
-    }
+    //navigator.getUserMedia(constraints, onGotStream, onFailedStream);
     //-----------------------
 }
 
