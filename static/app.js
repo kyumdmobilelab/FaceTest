@@ -167,6 +167,14 @@ start();
 
 //------------------------------------------
 
+function switchChange(e) {
+    console.log(e.checked);
+    if (e.checked) {
+
+    } else {
+        
+    }
+}
 
 function takeSnapshotBtuuon_click() {
     document.getElementById('panelDiv').style.display = 'none';
