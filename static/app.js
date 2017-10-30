@@ -124,17 +124,18 @@ function handleError(error) {
 
 
 function gotStream(stream) {
-    var videoElement = document.getElementById('localVideo');
+    //var videoElement = document.getElementById('localVideo');
     window.stream = stream; // make stream available to console
-    videoElement.srcObject = stream;
+    //videoElement.srcObject = stream;
 
-    videoElement.style.opacity = 1;
+    localVideo.style.opacity = 1;
+    localVideo.srcObject = stream;
     localStream = stream;
     setTimeout(poll, 1500);
 
     // Refresh button list in case labels have become available
     return navigator.mediaDevices.enumerateDevices();
-  }
+}
 
 function start() {
     if (window.stream) {
