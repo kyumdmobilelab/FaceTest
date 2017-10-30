@@ -200,6 +200,8 @@ function autoFetchFaceImage() {
     console.log("w:" + FaceCompWidth);
     console.log("h:" + FaceCompHeight);
 
+    document.getElementById('countSecond').innerText = "嘗試抓取臉部..."
+
     if (FaceCompWidth > 125 && FaceCompHeight > 125) {
         takeSnapshotBtuuon_click();
     }
