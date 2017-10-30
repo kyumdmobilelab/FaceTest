@@ -2,6 +2,7 @@
 var localVideo;
 var localCanvas;
 
+/*
 initialize = function() {
     localVideo = document.getElementById("localVideo");
     localCanvas = document.getElementById("localCanvas");
@@ -10,7 +11,7 @@ initialize = function() {
     } catch (e) {
         alert("getUserMedia error " + e);
     }
-}
+}*/
 
 var FaceCompX = 0;
 var FaceCompY = 0;
@@ -73,14 +74,91 @@ onGotStream = function(stream) {
     localVideo.style.opacity = 1;
     localVideo.srcObject = stream;
     localStream = stream;
-    setTimeout(poll, 2000);
+    setTimeout(poll, 1500);
 }
 onFailedStream = function(error) {
     alert("Failed to get access to local media. Error code was " + error.code + ".");
 }
 
-setTimeout(initialize, 1);
+//setTimeout(initialize, 1);
 
+
+var videoSelect = document.querySelector('select#videoSource');
+var selectors = [videoSelect];
+
+navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+
+function gotDevices(deviceInfos) {
+    // Handles being called several times to update labels. Preserve values.
+    var values = selectors.map(function(select) {
+        return select.value;
+    });
+    selectors.forEach(function(select) {
+        while (select.firstChild) {
+            select.removeChild(select.firstChild);
+        }
+    });
+    for (var i = 0; i !== deviceInfos.length; ++i) {
+        var deviceInfo = deviceInfos[i];
+        var option = document.createElement('option');
+        option.value = deviceInfo.deviceId;
+        
+        if (deviceInfo.kind === 'videoinput') {
+            option.text = deviceInfo.label || 'camera ' + (videoSelect.length + 1);
+            videoSelect.appendChild(option);
+        }
+    }
+    
+    selectors.forEach(function(select, selectorIndex) {
+        if (Array.prototype.slice.call(select.childNodes).some(function(n) {
+            return n.value === values[selectorIndex];
+        })) {
+            select.value = values[selectorIndex];
+        }
+    });
+}
+
+function handleError(error) {
+    console.log('navigator.getUserMedia error: ', error);
+}
+
+
+function gotStream(stream) {
+    var videoElement = document.getElementById('localVideo');
+    window.stream = stream; // make stream available to console
+    videoElement.srcObject = stream;
+    // Refresh button list in case labels have become available
+    return navigator.mediaDevices.enumerateDevices();
+  }
+
+function start() {
+    if (window.stream) {
+        window.stream.getTracks().forEach(function(track) {
+            track.stop();
+        });
+    }
+    var videoSource = videoSelect.value;
+    var constraints = {
+        video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+    };
+    // navigator.mediaDevices.getUserMedia(constraints).
+    //     then(gotStream).then(gotDevices).catch(handleError);
+
+
+    //-----------------------
+    localVideo = document.getElementById("localVideo");
+    localCanvas = document.getElementById("localCanvas");
+    try {
+        navigator.getUserMedia(constraints, onGotStream, onFailedStream);
+    } catch (e) {
+        alert("getUserMedia error " + e);
+    }
+    //-----------------------
+}
+
+videoSelect.onchange = start;
+
+start();
 
 //------------------------------------------
 
@@ -90,30 +168,46 @@ function takeSnapshotBtuuon_click() {
     document.getElementById('progressDiv').style.display = 'block';
     document.getElementById('otherDiv').style.display = 'block';
     document.getElementById('otherMsgTitle').style.display = 'none';
+    document.getElementById('chooseCameraDiv').style.display = 'none';
 
-    let myvideo = document.getElementById('localVideo');
+    const myFirstPromise = new Promise((resolve, reject) => {
+        // 執行一些非同步作業，最終呼叫:
+        //
+        //   resolve(someValue); // 實現
+        // 或
+        //   reject("failure reason"); // 拒絕
 
-    let tempCanvas = document.createElement('canvas');
-    let context = tempCanvas.getContext('2d');
+        let myvideo = document.getElementById('localVideo');
+        
+        let tempCanvas = document.createElement('canvas');
+        let context = tempCanvas.getContext('2d');
+    
+        let x = FaceCompX - (FaceCompWidth/4);
+        let y = FaceCompY - (FaceCompHeight/4)
+        let width = FaceCompWidth + (FaceCompWidth/4)*2;
+        let height = FaceCompHeight + (FaceCompHeight/5)*3;
+    
+        tempCanvas.width = width;
+        tempCanvas.height = height;
+    
+        context.drawImage(myvideo, x, y, width, height, 0, 0, width, height);
+        let imageData = context.canvas.toDataURL("image/png");
+        document.getElementById('faceImage').src = imageData;
 
-    let x = FaceCompX - (FaceCompWidth/4);
-    let y = FaceCompY - (FaceCompHeight/4)
-    let width = FaceCompWidth + (FaceCompWidth/4)*2;
-    let height = FaceCompHeight + (FaceCompHeight/5)*3;
+        resolve(context);
+    });
 
-    tempCanvas.width = width;
-    tempCanvas.height = height;
+    myFirstPromise.then(clipImageDone, null);
+}
 
-    context.drawImage(myvideo, x, y, width, height, 0, 0, width, height);
-    let imageData = context.canvas.toDataURL("image/png");
-    document.getElementById('faceImage').src = imageData;
-
+function clipImageDone(context) {
     context.canvas.toBlob(function(blob) {
         setTimeout(function(){
             processImage(blob);
         }, 500);
     });
 }
+
 
 
 function againDetectBtuuon_click() {
@@ -123,6 +217,7 @@ function againDetectBtuuon_click() {
     document.getElementById('resultDiv').style.display = 'none';
     document.getElementById('frameDiv').style.borderWidth = '0px';
     document.getElementById('againDetectBtuuon').style.display = 'none';
+    document.getElementById('chooseCameraDiv').style.display = 'block';
 }
 
 
@@ -203,6 +298,8 @@ function showResultValues() {
     document.getElementById('otherMsgTitle').style.display = 'block';
     document.getElementById('frameDiv').style.borderWidth = '1px';
     document.getElementById('againDetectBtuuon').style.display = 'block';
+
+    gotSeafoodSuggest();
 }
 
 
@@ -254,6 +351,7 @@ function processImage(imageBlob) {
         // Show formatted JSON on webpage.
         $("#responseTextArea").val(JSON.stringify(data, null, 2));
         console.log("Detect done.");
+        console.log(JSON.stringify(data, null, 2));
 
         resultJSON = data[0];
         showResultValues();
@@ -302,62 +400,254 @@ function analysisData(data) {
 
 function analysisMale(data) {
     if (data["age"] > 40) {
-        // 新潮大叔、黑社會大哥、大老闆
+        // 憂鬱大叔、凶神惡煞、大俠、黑社會大哥、大老闆、學者、陽光大叔
+        // 雜魚大叔、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
             document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱大叔&nbsp;";
+        } else if (data["anger"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;凶神惡煞&nbsp;";
         } else if (data["glasses"] === "Sunglasses") {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;黑社會大哥&nbsp;";
+            if (data["smile"] > 0.15) {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;大俠&nbsp;";
+            } else {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;黑社會大哥&nbsp;";
+            }
         } else if (data["glasses"] === "ReadingGlasses") {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;大老闆&nbsp;";
+            if (data["neutral"] < 0.7) {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;大老闆&nbsp;";
+            } else {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;學者&nbsp;";
+            }
         } else if (data["smile"] > 0.2) {
             document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大叔&nbsp;";
         } else {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;雜魚大叔&nbsp;";
+            let maxNum = 2;  
+            let minNum = 0;  
+            let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
+            let array = ["雜魚大叔", "無名路人", "了無生趣"];
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;" + array[n] + "&nbsp;";
         }
     } else {
-        // 憂鬱小生、陽光大男孩、文青
+        // 憂鬱小生、小流氓、帥氣青年、耍酷男孩、年輕有為、文青、陽光大男孩
+        // 雜魚小弟、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
             document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱小生&nbsp;";
+        } else if (data["anger"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;小流氓&nbsp;";
         } else if (data["glasses"] === "Sunglasses") {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;帥氣青年&nbsp;";
+            if (data["smile"] > 0.15){
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;帥氣青年&nbsp;";
+            } else {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;耍酷男孩&nbsp;";
+            }
         } else if (data["glasses"] === "ReadingGlasses") {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;文青&nbsp;";
+            if (data["neutral"] < 0.7) {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;年輕有為&nbsp;";
+            } else {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;文青&nbsp;";
+            }
         } else if (data["smile"] > 0.2) {
             document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大男孩&nbsp;";
         } else {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;雜魚小弟&nbsp;";
+            let maxNum = 2;  
+            let minNum = 0;  
+            let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
+            let array = ["雜魚小弟", "無名路人", "了無生趣"];
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;" + array[n] + "&nbsp;";
         }
     }
 }
 
 function analysisFemale(data) {
     if (data["age"] > 40) {
-        // 新潮美魔女、黑社會大姐頭、女強人
+        // 憂鬱阿姨、憤怒阿姨、女俠、新潮美魔女、女強人、氣質美女、陽光大嬸
+        // 雜魚大姊、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
             document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱阿姨&nbsp;";
+        } else if (data["anger"] > 0.4) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;憤怒阿姨&nbsp;";
         } else if (data["glasses"] === "Sunglasses") {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;新潮美魔女&nbsp;";
+            if (data["smile"] > 0.15){
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;女俠&nbsp;";
+            } else {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;新潮美魔女&nbsp;";
+            }
         } else if (data["glasses"] === "ReadingGlasses") {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;女強人&nbsp;";
+            if (data["neutral"] < 0.7) {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;女強人&nbsp;";
+            } else {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;氣質美女&nbsp;";
+            }
         } else if (data["smile"] > 0.2) {
             document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大嬸&nbsp;";
         } else {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;雜魚大姊&nbsp;";
+            let maxNum = 2;  
+            let minNum = 0;  
+            let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
+            let array = ["雜魚大姊", "無名路人", "了無生趣"];
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;" + array[n] + "&nbsp;";
         }
     } else {
-        // 多愁少女、妙齡美少女、文藝少女
+        // 多愁少女、恰北北、時尚美女、前衛少女、文藝少女、氣質少女、妙齡美女
+        // 雜魚妹妹、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
             document.getElementById('analysisTitle').innerHTML = "&nbsp;多愁少女&nbsp;";
+        } else if (data["anger"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;恰北北&nbsp;";
         } else if (data["glasses"] === "Sunglasses") {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;前衛少女&nbsp;";
+            if (data["smile"] > 0.15){
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;時尚美女&nbsp;";
+            } else {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;前衛少女&nbsp;";
+            }
         } else if (data["glasses"] === "ReadingGlasses") {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;文藝少女&nbsp;";
+            if (data["neutral"] < 0.7) {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;文藝少女&nbsp;";
+            } else {
+                document.getElementById('analysisTitle').innerHTML = "&nbsp;氣質少女&nbsp;";
+            }
         } else if (data["smile"] > 0.2) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;妙齡美少女&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;妙齡美女&nbsp;";
         } else {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;雜魚妹妹&nbsp;";
+            let maxNum = 2;  
+            let minNum = 0;  
+            let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
+            let array = ["雜魚妹妹", "無名路人", "了無生趣"];
+            document.getElementById('analysisTitle').innerHTML = "&nbsp;" + array[n] + "&nbsp;";
         }
     }
 }
 
+
+function gotSeafoodSuggest() {
+    let str = document.getElementById('analysisTitle').innerHTML.replace(/&nbsp;/g, '');
+
+    // 路人
+    if (str === "雜魚妹妹" ||
+        str === "雜魚大姊" ||
+        str === "雜魚小弟" ||
+        str === "雜魚大叔" ||
+        str === "無名路人" ||
+        str === "了無生趣")
+    {
+        let array = [
+            "忙忙碌碌苦中求，<br/>何日雲開見日頭；<br/>難得祖基家可立，<br/>中年衣食漸無憂。",
+            "此命福氣果如何，<br/>僧道門中衣祿多；<br/>離祖出家方為妙，<br/>朝晚拜佛念彌陀。",
+            "勞勞碌碌苦中求，<br/>東奔西走何日休；<br/>若能終身勤與儉，<br/>老來稍可免憂愁。"
+        ];
+
+        let maxNum = 2;  
+        let minNum = 0;
+        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+
+        document.getElementById('SuggestText').innerHTML = array[n];
+    }
+
+    // 憂鬱
+    if (str === "憂鬱大叔" ||
+        str === "憂鬱小生" ||
+        str === "憂鬱阿姨" ||
+        str === "多愁少女")
+    {
+        let array = [
+            "萬事由天莫苦求，<br/>須知福祿賴人修；<br/>中年財帛難如意，<br/>晚景欣然便不憂。",
+            "平生衣祿苦中求，<br/>獨自營謀事不休；<br/>離祖出門宜早計，<br/>晚來衣食自無憂。",
+            "得寬懷處且寬懷，<br/>何用雙眉皺不開；<br/>若使中年命運濟，<br/>那時名利一齊來。"
+        ];
+
+        let maxNum = 2;  
+        let minNum = 0;
+        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+
+        document.getElementById('SuggestText').innerHTML = array[n];
+    }
+
+    // 憤怒
+    if (str === "凶神惡煞" ||
+        str === "小流氓" ||
+        str === "憤怒阿姨" ||
+        str === "恰北北")
+    {
+        let array = [
+            "一生作事少商量，<br/>難靠祖宗作主張；<br/>獨馬單槍空做去，<br/>早年晚歲總無長。",
+            "為利為名終日勞，<br/>中年福祿也多遭；<br/>老年自有財星照，<br/>不比前番目下高。",
+            "走馬揚鞭爭利名，<br/>少年做事費評論；<br/>一朝福祿源源至，<br/>富貴榮華顯六親。"
+        ];
+
+        let maxNum = 2;  
+        let minNum = 0;
+        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+
+        document.getElementById('SuggestText').innerHTML = array[n];
+    }
+
+    // 墨鏡
+    if (str === "大俠" ||
+        str === "黑社會大哥" ||
+        str === "帥氣青年" ||
+        str === "耍酷男孩" ||
+        str === "女俠" ||
+        str === "新潮美魔女" ||
+        str === "時尚美女" ||
+        str === "前衛少女")
+    {
+        let array = [
+            "一世榮華事事通，<br/>不須勞苦自亨通；<br/>弟兄叔侄皆如意，<br/>家業成時福祿宏。",
+            "平生福祿自然來，<br/>名利兼全福壽偕；<br/>雁塔題名為貴客，<br/>紫袍玉帶走金階。",
+            "此命推來福不輕，<br/>自成自立顯門庭；<br/>從來富貴人親近，<br/>使婢差奴過一生。",
+            "走馬揚鞭爭利名，<br/>少年做事費評論；<br/>一朝福祿源源至，<br/>富貴榮華顯六親。",
+            "此命威權不可當，<br/>紫袍金帶坐高堂；<br/>榮華富貴誰能及，<br/>百世留名姓氏揚。"
+        ];
+
+        let maxNum = 4;  
+        let minNum = 0;
+        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+
+        document.getElementById('SuggestText').innerHTML = array[n];
+    }
+
+    // 大老闆
+    if (str === "大老闆" ||
+        str === "學者" ||
+        str === "年輕有為" ||
+        str === "文青" ||
+        str === "女強人" ||
+        str === "氣質美女")
+    {
+        let array = [
+            "細推此命福不輕，<br/>富貴榮華孰與爭；<br/>定國安邦榮品人，<br/>威聲顯赫四方聞。",
+            "此格人間一福人，<br/>堆金積玉滿堂春；<br/>從來富貴由天定，<br/>金榜題名謁聖君。",
+            "細推此格秀且清，<br/>必定財高學業成；<br/>甲第之中應有分，<br/>揚鞭走馬顯威榮。",
+            "此命推來厚且清，<br/>詩書滿腹功業成；<br/>豐衣足食自然穩，<br/>正是人間有福人。"
+        ];
+
+        let maxNum = 3;  
+        let minNum = 0;
+        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+
+        document.getElementById('SuggestText').innerHTML = array[n];
+    }
+
+    //陽光
+    if (str === "文藝少女" ||
+        str === "氣質少女" ||
+        str === "陽光大叔" ||
+        str === "陽光大男孩" ||
+        str === "陽光大嬸" ||
+        str === "妙齡美女")
+    {
+        let array = [
+            "此命生來福不窮，<br/>讀書必定顯親族；<br/>紫衣金帶為卿相，<br/>富貴榮華皆可同。",
+            "不作朝中金榜客，<br/>官為世上一財翁；<br/>聰明天賦經書熟，<br/>名顯高科自是榮。",
+            "此命推來是不同，<br/>為人能幹異凡庸；<br/>中年還有逍遙福，<br/>不比前年運未通。",
+            "君是人間衣祿星，<br/>一生富貴眾人欽；<br/>縱然福祿由天定，<br/>安享榮華過一生。"
+        ];
+
+        let maxNum = 3;  
+        let minNum = 0;
+        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+
+        document.getElementById('SuggestText').innerHTML = array[n];
+    }
+}
 

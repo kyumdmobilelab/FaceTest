@@ -13,7 +13,6 @@
     
     <link rel="stylesheet" type="text/css" href="css/app.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <script type="text/javascript" src="app.js"></script>
 </head>
 <body>
     <div id="titleDiv">
@@ -22,9 +21,12 @@
         <hr />
     </div>
     <div id="progressDiv" style="display:none;">
-        <div style="text-align:center; margin-left:auto; margin-right:auto; margin-top:20px; margin-bottom:20px;">分析中...</div>
+        <div style="text-align:center; margin-left:auto; margin-right:auto; margin-top:10px; margin-bottom:10px; font-weight: bold;">分析中...</div>
         <img style="margin-left:auto; margin-right:auto; display:block; margin-top:20px; margin-bottom:20px;" src="images/ajax-loader.gif"/>
         <br>
+    </div>
+    <div style="width: 500px; margin-left: auto; margin-right: auto;" id="chooseCameraDiv">
+        <label for="videoSource">Camera source: </label><select id="videoSource"></select>
     </div>
     <div id="panelDiv">
         <video id="localVideo" autoplay playsinline muted></video>
@@ -38,15 +40,16 @@
         </div>
         <div id="resultDiv" style="display:none;">
             <div style="clear:both; position: relative; margin-top:15px; margin-bottom:30px; height:50px; ">
-                <div id="genderValue" class="basicProperty" style="float:left; font-weight:bold; font-size:2.5em;position: absolute; top:0px; left:110px;"></div>
+                <div id="genderValue" class="basicProperty" style="float:left; font-weight:bold; font-size:2.5em;position: absolute; top:0px; left:100px;"></div>
                 <div id="ageValue"  class="basicProperty" style="float:right; font-weight:bold; font-size:2.5em;position: absolute; top:0px; right:100px;"></div>
             </div>
             <div style="clear:both; margin-top:50px; margin-bottom:30px;">
-                <div style="float:left; font-size:1.8em; margin-left:120px; margin-bottom: 20px;">面相特質:&nbsp;&nbsp;</div><div id="analysisTitle" class="analysisText"></div>
+                <div style="float:left; font-size:1.8em; margin-left:120px; margin-bottom: 30px;">面相特質:&nbsp;&nbsp;</div><div id="analysisTitle" class="analysisText"></div>
                 <div id="seafoodSuggest">
-                    <p style="text-align:center; font-size:1.3em; font-weight:bold; color:#551A8B;">Seafood的建議:</p>
+                    <p style="text-align:center;padding-top:20px;font-size:1.5em; font-weight:bold; color:#551A8B;">Seafood 的籤詩:</p>
                     <hr />
-                    <p style="margin-left:25px; margin-right:25px; font-size:2.0em;">沒事多喝水，多喝水沒事~</p>
+                    <br />
+                    <div style="text-align:center; font-weight:bold; font-size:1.5em; color:rgb(76, 29, 124);" id="SuggestText"></div>
                 </div>
                 <div style="display:none;">
                     <div id="glassesValue" class="resultText"></div>
@@ -69,6 +72,6 @@
         <br><br>
         <textarea id="responseTextArea" class="UIInput" style="width:580px; height:400px;"></textarea>
     </div>
-    
 </body>
+<script type="text/javascript" src="app.js"></script>
 </html>
