@@ -127,6 +127,11 @@ function gotStream(stream) {
     var videoElement = document.getElementById('localVideo');
     window.stream = stream; // make stream available to console
     videoElement.srcObject = stream;
+
+    videoElement.style.opacity = 1;
+    localStream = stream;
+    setTimeout(poll, 1500);
+
     // Refresh button list in case labels have become available
     return navigator.mediaDevices.enumerateDevices();
   }
@@ -149,7 +154,9 @@ function start() {
     localVideo = document.getElementById("localVideo");
     localCanvas = document.getElementById("localCanvas");
     try {
-        navigator.getUserMedia(constraints, onGotStream, onFailedStream);
+        navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+
+        //navigator.getUserMedia(constraints, onGotStream, onFailedStream);
     } catch (e) {
         alert("getUserMedia error " + e);
     }
