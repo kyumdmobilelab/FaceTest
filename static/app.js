@@ -70,15 +70,17 @@ poll = function() {
     //setTimeout(poll, 1000);
 }
 
+/*
 onGotStream = function(stream) {
     localVideo.style.opacity = 1;
     localVideo.srcObject = stream;
     localStream = stream;
     setTimeout(poll, 1500);
-}
+}*/
+/*
 onFailedStream = function(error) {
     alert("Failed to get access to local media. Error code was " + error.code + ".");
-}
+}*/
 
 //setTimeout(initialize, 1);
 
@@ -153,15 +155,10 @@ function start() {
     var constraints = {
         video: {deviceId: videoSource ? {exact: videoSource} : undefined}
     };
-    // navigator.mediaDevices.getUserMedia(constraints).
-    //     then(gotStream).then(gotDevices).catch(handleError);
 
-
-    //-----------------------
     navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 
     //navigator.getUserMedia(constraints, onGotStream, onFailedStream);
-    //-----------------------
 }
 
 videoSelect.onchange = start;
