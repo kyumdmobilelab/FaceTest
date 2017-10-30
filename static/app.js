@@ -47,25 +47,33 @@ poll = function() {
     }
     x_scale = (localVideo.clientWidth - x_offset * 2) / localVideo.videoWidth;
     y_scale = (localVideo.clientHeight - y_offset * 2) / localVideo.videoHeight;
-    for (var i = 0; i < comp.length; i++) {
-        FaceCompX = comp[i].x;
-        FaceCompY = comp[i].y;
-        FaceCompWidth = comp[i].width;
-        FaceCompHeight = comp[i].height;
 
-        comp[i].x = comp[i].x * x_scale + x_offset;
-        comp[i].y = comp[i].y * y_scale + y_offset;
-        comp[i].width = comp[i].width * x_scale;
-        comp[i].height = comp[i].height * y_scale;
-        var opacity = 0.1;
-        if (comp[i].confidence > 0) {
-            opacity += comp[i].confidence / 10;
-            if (opacity > 1.0) opacity = 1.0;
+    if (comp.length > 0) {
+        for (var i = 0; i < comp.length; i++) {
+            FaceCompX = comp[i].x;
+            FaceCompY = comp[i].y;
+            FaceCompWidth = comp[i].width;
+            FaceCompHeight = comp[i].height;
+
+            comp[i].x = comp[i].x * x_scale + x_offset;
+            comp[i].y = comp[i].y * y_scale + y_offset;
+            comp[i].width = comp[i].width * x_scale;
+            comp[i].height = comp[i].height * y_scale;
+            var opacity = 0.1;
+            if (comp[i].confidence > 0) {
+                opacity += comp[i].confidence / 10;
+                if (opacity > 1.0) opacity = 1.0;
+            }
+            //ctx2.strokeStyle = "rgba(255,0,0," + opacity * 255 + ")";
+            ctx2.lineWidth = opacity * 10;
+            ctx2.strokeStyle = "rgb(255,0,0)";
+            ctx2.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
         }
-        //ctx2.strokeStyle = "rgba(255,0,0," + opacity * 255 + ")";
-        ctx2.lineWidth = opacity * 10;
-        ctx2.strokeStyle = "rgb(255,0,0)";
-        ctx2.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
+    } else {
+        FaceCompX = 0;
+        FaceCompY = 0;
+        FaceCompWidth = 0;
+        FaceCompHeight = 0;
     }
     //setTimeout(poll, 1000);
 }
@@ -167,16 +175,43 @@ start();
 
 //------------------------------------------
 
-function switchChange(e) {
-    console.log(e.checked);
-    if (e.checked) {
+var autoFetchFaceImageTimerId = null;
 
+function switchChange(e) {
+    //console.log(e.checked);
+    if (e.checked) {
+        var countSec = 5;
+        autoFetchFaceImageTimerId = setInterval(function(){
+            let sec = (countSec >= 0) ? countSec : 0;
+            document.getElementById('countSecond').innerText = "倒數 " + sec + " 秒...";
+            if (countSec < 0) {
+                autoFetchFaceImage();
+            }
+            countSec--;
+        }, 1000);
     } else {
-        
+        if (autoFetchFaceImageTimerId) {
+            clearInterval(autoFetchFaceImageTimerId);
+        }
+    }
+}
+
+function autoFetchFaceImage() {
+    console.log("w:" + FaceCompWidth);
+    console.log("h:" + FaceCompHeight);
+
+    if (FaceCompWidth > 125 && FaceCompHeight > 125) {
+        takeSnapshotBtuuon_click();
     }
 }
 
 function takeSnapshotBtuuon_click() {
+    if (autoFetchFaceImageTimerId) {
+        clearInterval(autoFetchFaceImageTimerId);
+        document.getElementById('countSecond').innerText = "";
+        document.getElementById('switch_checkbox').checked = false;
+    }
+
     document.getElementById('panelDiv').style.display = 'none';
     document.getElementById('progressDiv').style.display = 'block';
     document.getElementById('otherDiv').style.display = 'block';
