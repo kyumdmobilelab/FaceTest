@@ -219,6 +219,7 @@ function takeSnapshotBtuuon_click() {
     document.getElementById('otherDiv').style.display = 'block';
     document.getElementById('otherMsgTitle').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'none';
+    document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
 
     const myFirstPromise = new Promise((resolve, reject) => {
         // 執行一些非同步作業，最終呼叫:
