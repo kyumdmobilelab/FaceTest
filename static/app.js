@@ -200,7 +200,7 @@ function autoFetchFaceImage() {
     console.log("w:" + FaceCompWidth);
     console.log("h:" + FaceCompHeight);
 
-    document.getElementById('countSecond').innerText = "嘗試抓取臉部..."
+    document.getElementById('countSecond').innerText = "嘗試抓取臉部，請靠近鏡頭..."
 
     if (FaceCompWidth > 125 && FaceCompHeight > 125) {
         takeSnapshotBtuuon_click();
@@ -259,7 +259,6 @@ function clipImageDone(context) {
 }
 
 
-
 function againDetectBtuuon_click() {
     document.getElementById('panelDiv').style.display = 'block';
     document.getElementById('progressDiv').style.display = 'none';
@@ -268,6 +267,14 @@ function againDetectBtuuon_click() {
     document.getElementById('frameDiv').style.borderWidth = '0px';
     document.getElementById('againDetectBtuuon').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'block';
+
+    document.getElementById('analysisTitle').style.display = 'none';
+    document.getElementById('myProperty1').style.display = "none";
+    document.getElementById('myProperty2').style.display = "none";
+    document.getElementById('myProperty3').style.display = "none";
+    document.getElementById('myProperty4').style.display = "none";
+    document.getElementById('myProperty5').style.display = "none";
+    document.getElementById('myProperty6').style.display = "none";
 }
 
 
@@ -349,7 +356,9 @@ function showResultValues() {
     document.getElementById('frameDiv').style.borderWidth = '1px';
     document.getElementById('againDetectBtuuon').style.display = 'block';
 
-    gotSeafoodSuggest();
+    //gotSeafoodSuggest();
+
+    settingMyProperties();
 }
 
 
@@ -446,6 +455,7 @@ function analysisData(data) {
     } else if (data["gender"] === "female") {
         analysisFemale(data);
     }
+    document.getElementById('analysisTitle').style.display = 'block';
 }
 
 function analysisMale(data) {
@@ -453,57 +463,57 @@ function analysisMale(data) {
         // 憂鬱大叔、凶神惡煞、大俠、黑社會大哥、大老闆、學者、陽光大叔
         // 雜魚大叔、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱大叔&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "憂鬱大叔";
         } else if (data["anger"] > 0.3) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;凶神惡煞&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "凶神惡煞";
         } else if (data["glasses"] === "Sunglasses") {
             if (data["smile"] > 0.15) {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;大俠&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "大俠";
             } else {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;黑社會大哥&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "黑社會大哥";
             }
         } else if (data["glasses"] === "ReadingGlasses") {
             if (data["neutral"] < 0.7) {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;大老闆&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "大老闆";
             } else {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;學者&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "學者";
             }
         } else if (data["smile"] > 0.2) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大叔&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "陽光大叔";
         } else {
             let maxNum = 2;  
             let minNum = 0;  
             let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
             let array = ["雜魚大叔", "無名路人", "了無生趣"];
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;" + array[n] + "&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = array[n];
         }
     } else {
         // 憂鬱小生、小流氓、帥氣青年、耍酷男孩、年輕有為、文青、陽光大男孩
         // 雜魚小弟、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱小生&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "憂鬱小生";
         } else if (data["anger"] > 0.3) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;小流氓&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "小流氓";
         } else if (data["glasses"] === "Sunglasses") {
             if (data["smile"] > 0.15){
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;帥氣青年&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "帥氣青年";
             } else {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;耍酷男孩&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "耍酷男孩";
             }
         } else if (data["glasses"] === "ReadingGlasses") {
             if (data["neutral"] < 0.7) {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;年輕有為&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "年輕有為";
             } else {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;文青&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "文青";
             }
         } else if (data["smile"] > 0.2) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大男孩&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "陽光大男孩";
         } else {
             let maxNum = 2;  
             let minNum = 0;  
             let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
             let array = ["雜魚小弟", "無名路人", "了無生趣"];
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;" + array[n] + "&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = array[n];
         }
     }
 }
@@ -513,62 +523,207 @@ function analysisFemale(data) {
         // 憂鬱阿姨、憤怒阿姨、女俠、新潮美魔女、女強人、氣質美女、陽光大嬸
         // 雜魚大姊、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;憂鬱阿姨&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "憂鬱阿姨";
         } else if (data["anger"] > 0.4) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;憤怒阿姨&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "憤怒阿姨";
         } else if (data["glasses"] === "Sunglasses") {
             if (data["smile"] > 0.15){
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;女俠&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "女俠";
             } else {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;新潮美魔女&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "新潮美魔女";
             }
         } else if (data["glasses"] === "ReadingGlasses") {
             if (data["neutral"] < 0.7) {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;女強人&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "女強人";
             } else {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;氣質美女&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "氣質美女";
             }
         } else if (data["smile"] > 0.2) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;陽光大嬸&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "陽光大嬸";
         } else {
             let maxNum = 2;  
             let minNum = 0;  
             let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
             let array = ["雜魚大姊", "無名路人", "了無生趣"];
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;" + array[n] + "&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = array[n];
         }
     } else {
         // 多愁少女、恰北北、時尚美女、前衛少女、文藝少女、氣質少女、妙齡美女
         // 雜魚妹妹、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;多愁少女&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "多愁少女";
         } else if (data["anger"] > 0.3) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;恰北北&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "恰北北";
         } else if (data["glasses"] === "Sunglasses") {
             if (data["smile"] > 0.15){
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;時尚美女&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "時尚美女";
             } else {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;前衛少女&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "前衛少女";
             }
         } else if (data["glasses"] === "ReadingGlasses") {
             if (data["neutral"] < 0.7) {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;文藝少女&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "文藝少女";
             } else {
-                document.getElementById('analysisTitle').innerHTML = "&nbsp;氣質少女&nbsp;";
+                document.getElementById('analysisTitle').innerHTML = "氣質少女";
             }
         } else if (data["smile"] > 0.2) {
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;妙齡美女&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = "妙齡美女";
         } else {
             let maxNum = 2;  
             let minNum = 0;  
             let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
             let array = ["雜魚妹妹", "無名路人", "了無生趣"];
-            document.getElementById('analysisTitle').innerHTML = "&nbsp;" + array[n] + "&nbsp;";
+            document.getElementById('analysisTitle').innerHTML = array[n];
         }
     }
 }
 
+function settingMyProperties() {
+    let str = document.getElementById('analysisTitle').innerHTML;
+    let array = [];
 
+    // 憂鬱大叔、憂鬱阿姨、憂鬱小生、多愁少女
+    if (str === "憂鬱大叔" ||
+        str === "憂鬱阿姨" ||
+        str === "憂鬱小生" ||
+        str === "多愁少女")
+    {
+        array[0] = '宅在家裡';
+        array[1] = '情緒灰暗';
+        array[2] = '戀家';
+        array[3] = '喜歡電玩';
+        array[4] = '多愁多慮';
+        array[5] = '安全第一';
+    }
+
+    // 凶神惡煞、小流氓、憤怒阿姨、恰北北
+    if (str === "凶神惡煞" ||
+        str === "小流氓" ||
+        str === "憤怒阿姨" ||
+        str === "恰北北")
+    {
+        array[0] = '行事急切';
+        array[1] = '情緒高亢';
+        array[2] = '不常在家';
+        array[3] = '需要朋友';
+        array[4] = '怒氣沖沖';
+        array[5] = '沒人敢惹';
+    }
+
+    // 大俠、帥氣青年、女俠、時尚美女
+    if (str === "大俠" ||
+        str === "帥氣青年" ||
+        str === "女俠" ||
+        str === "時尚美女")
+    {
+        array[0] = '愛好和平';
+        array[1] = '情緒愉快';
+        array[2] = '愛家';
+        array[3] = '很會打扮';
+        array[4] = '個性開朗';
+        array[5] = '仗義直言';
+    }
+
+    // 黑社會大哥、耍酷男孩、新潮美魔女、前衛少女
+    if (str === "黑社會大哥" ||
+        str === "耍酷男孩" ||
+        str === "新潮美魔女" ||
+        str === "前衛少女")
+    {
+        array[0] = '追求流行';
+        array[1] = '情緒鎮定';
+        array[2] = '愛家';
+        array[3] = '很會掙錢';
+        array[4] = '時代前端';
+        array[5] = '思想開放';
+    }
+
+    // 大老闆、年輕有為、女強人、文藝少女
+    if (str === "大老闆" ||
+        str === "年輕有為" ||
+        str === "女強人" ||
+        str === "文藝少女")
+    {
+        array[0] = '愛好工作';
+        array[1] = '情緒尚可';
+        array[2] = '顧家';
+        array[3] = '喜歡賺錢';
+        array[4] = '求新求變';
+        array[5] = '人緣不錯';
+    }
+
+    // 學者、文青、氣質美女、氣質少女
+    if (str === "學者" ||
+        str === "文青" ||
+        str === "氣質美女" ||
+        str === "氣質少女")
+    {
+        array[0] = '知識份子';
+        array[1] = '情緒快活';
+        array[2] = '顧家';
+        array[3] = '追求新知';
+        array[4] = '喜歡閱讀';
+        array[5] = '積極正面';
+    }
+
+    // 陽光大叔、陽光大男孩、陽光大嬸、妙齡美女
+    if (str === "陽光大叔" ||
+        str === "陽光大男孩" ||
+        str === "陽光大嬸" ||
+        str === "妙齡美女")
+    {
+        array[0] = '熱愛戶外';
+        array[1] = '情緒開朗';
+        array[2] = '溫柔';
+        array[3] = '無憂無慮';
+        array[4] = '愛開玩笑';
+        array[5] = '幸運兒';
+    }
+
+    // 雜魚大叔、雜魚小弟、雜魚大姊、雜魚妹妹
+    if (str === "雜魚大叔" ||
+        str === "雜魚小弟" ||
+        str === "雜魚大姊" ||
+        str === "雜魚妹妹")
+    {
+        array[0] = '個性圓融';
+        array[1] = '惜字如金';
+        array[2] = '一個好人';
+        array[3] = '戀家';
+        array[4] = '設定目標';
+        array[5] = '沒有特色';
+    }
+
+    // 無名路人、了無生趣
+    if (str === "無名路人" ||
+        str === "了無生趣") 
+    {
+        array[0] = '沒有情趣';
+        array[1] = '心如止水';
+        array[2] = '愛家';
+        array[3] = '情緒平穩';
+        array[4] = '一個好人';
+        array[5] = '設定目標';
+    }
+
+    // display:
+    document.getElementById('myProperty1').innerText = array[0];
+    document.getElementById('myProperty2').innerText = array[1];
+    document.getElementById('myProperty3').innerText = array[2];
+    document.getElementById('myProperty4').innerText = array[3];
+    document.getElementById('myProperty5').innerText = array[4];
+    document.getElementById('myProperty6').innerText = array[5];
+
+    document.getElementById('myProperty1').style.display = "block";
+    document.getElementById('myProperty2').style.display = "block";
+    document.getElementById('myProperty3').style.display = "block";
+    document.getElementById('myProperty4').style.display = "block";
+    document.getElementById('myProperty5').style.display = "block";
+    document.getElementById('myProperty6').style.display = "block";
+}
+
+
+/*
 function gotSeafoodSuggest() {
     let str = document.getElementById('analysisTitle').innerHTML.replace(/&nbsp;/g, '');
 
@@ -699,5 +854,5 @@ function gotSeafoodSuggest() {
 
         document.getElementById('SuggestText').innerHTML = array[n];
     }
-}
+}*/
 

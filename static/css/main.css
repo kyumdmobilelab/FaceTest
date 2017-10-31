@@ -15,8 +15,8 @@ body {
     width: 500px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 60px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 0px;
 }
 
 #panelDiv {
@@ -50,15 +50,6 @@ body {
     opacity: 0;
 }
 
-#otherDiv {
-    clear: both;
-    position: relative;
-    width: 500px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto; 
-}
-
 #takeSnapshotBtuuon {
     clear: both;
     float: right;
@@ -72,7 +63,17 @@ body {
     border: 0px solid rgb(189, 189, 189);
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
+    margin-top: 0px;
+}
+
+#otherDiv {
+    clear: both;
+    position: relative;
+    width: 500px;
+    height: 400px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto; 
 }
 
 #otherMsgTitle {
@@ -88,19 +89,48 @@ body {
 
 #faceImage {
     display: block;
-    width: 40%;
-    margin-top: 40px;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    /*margin-top: 40px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto;*/
+    top: 120px;
+    left: 145px;
     border-radius: 50%;
     border: 5px solid #01B468;
     background-color: rgb(34, 34, 34);
 }
 
+.analysisText {
+    position: absolute;
+    text-align: center;
+    background-color: #ff7575;
+    border: 3px solid #AE0000;
+    border-radius: 12%;
+    color: #750000; 
+    font-weight:bold; 
+    font-size:1.7em;
+    width: 155px;
+}
+
+.myProperty {
+    position: absolute;
+    text-align: center;
+    width: 110px;
+    height: 28px;
+    border: 2px solid rgb(17, 122, 75);
+    background-color: rgb(194, 229, 213);
+    color: rgb(17, 122, 75);
+    border-radius: 12%;
+    font-size: 1.25em;
+    font-weight:bold;
+}
+
 #resultDiv {
     position: relative;
     width: 500px;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -136,22 +166,19 @@ body {
 }
 
 .basicProperty {
+    position: absolute;
     background-color: #FFE153;
     border: 3px solid #EAC100;
     border-radius: 12%;
     color: #977C00;
+    width: 150px;
+    height: 120px;
+    font-weight:bold; 
+    font-size:2.5em;
+    margin-top: 30px;
 }
 
-.analysisText {
-    background-color: #ff7575;
-    border: 3px solid #AE0000;
-    border-radius: 12%;
-    color: #750000; 
-    font-weight:bold; 
-    font-size:2.0em;
-    float: left;
-    margin-bottom: 40px; 
-}
+
 
 /* The switch - the box around the slider */
 .switch {
