@@ -265,6 +265,7 @@ function againDetectBtuuon_click() {
     document.getElementById('otherDiv').style.display = 'none';
     document.getElementById('resultDiv').style.display = 'none';
     document.getElementById('frameDiv').style.borderWidth = '0px';
+    document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
     document.getElementById('againDetectBtuuon').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'block';
 
@@ -275,6 +276,7 @@ function againDetectBtuuon_click() {
     document.getElementById('myProperty4').style.display = "none";
     document.getElementById('myProperty5').style.display = "none";
     document.getElementById('myProperty6').style.display = "none";
+
 }
 
 
@@ -354,6 +356,7 @@ function showResultValues() {
     document.getElementById('resultDiv').style.display = 'block';
     document.getElementById('otherMsgTitle').style.display = 'block';
     document.getElementById('frameDiv').style.borderWidth = '1px';
+    document.getElementById('frameDiv').style.backgroundColor = '#ebfff6';
     document.getElementById('againDetectBtuuon').style.display = 'block';
 
     //gotSeafoodSuggest();

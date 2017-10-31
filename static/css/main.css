@@ -64,6 +64,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     margin-top: 0px;
+    background-color: rgb(235, 255, 246);
 }
 
 #otherDiv {
@@ -131,10 +132,25 @@ body {
     position: relative;
     width: 500px;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     margin-left: auto;
     margin-right: auto;
-    font-size: 1.0em;
+    /*font-size: 1.0em;*/
+}
+
+#recommendDiv {
+    position: relative;
+    width: 500px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgb(189, 189, 189);
+}
+
+#recommendTable {
+    width:100%; 
+    text-align:center;
 }
 
 #seafoodSuggest {
@@ -150,11 +166,19 @@ body {
     border-radius: 5%;
 }
 
+#againDetectDiv{
+    position: relative;
+    width: 500px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #againDetectBtuuon {
     clear: both;
     float: right;
-    margin-top: 30px;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 30px;
     margin-right: 0px;
     font-size: 1.0em;
     width: 100px;
