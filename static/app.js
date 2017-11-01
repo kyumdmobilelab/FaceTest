@@ -267,7 +267,7 @@ function againDetectBtuuon_click() {
     document.getElementById('resultDiv').style.display = 'none';
     document.getElementById('frameDiv').style.borderWidth = '0px';
     // document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
-    document.getElementById('frameDiv').backgroundImage = 'linear-gradient(#f8f8f8, #f8f8f8)';
+    document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#f8f8f8, #f8f8f8)';
     document.getElementById('againDetectBtuuon').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'block';
     document.getElementById('recommendDiv').style.display = 'none';
