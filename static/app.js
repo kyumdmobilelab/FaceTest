@@ -357,7 +357,8 @@ function showResultValues() {
     document.getElementById('resultDiv').style.display = 'block';
     document.getElementById('otherMsgTitle').style.display = 'block';
     document.getElementById('frameDiv').style.borderWidth = '1px';
-    document.getElementById('frameDiv').style.backgroundColor = '#ebfff6';
+    // document.getElementById('frameDiv').style.backgroundColor = '#ebfff6';
+    document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#ebfff6, #f8f8f8)';
     document.getElementById('againDetectBtuuon').style.display = 'block';
 
     //gotSeafoodSuggest();
