@@ -1,5 +1,23 @@
 
+
 body {
+    background-color: rgb(240, 255, 247);
+}
+
+/*
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    background: linear-gradient(rgb(248, 248, 248), rgb(255, 235, 235) );
+}*/
+
+#bgViewDiv {
+    width: 650px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: rgb(248, 248, 248);
 }
 
@@ -8,6 +26,7 @@ body {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+    
 }
 
 #progressDiv {
@@ -142,7 +161,7 @@ body {
     position: relative;
     width: 500px;
     margin-top: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid rgb(189, 189, 189);
@@ -167,9 +186,11 @@ body {
 }
 
 #againDetectDiv{
-    position: relative;
+    clear: both;
     width: 500px;
-    margin-top: 10px;
+    height: 60px;
+    margin-top: 0px;
+    margin-bottom: 25px;
     margin-left: auto;
     margin-right: auto;
 }
