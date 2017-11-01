@@ -108,7 +108,7 @@ body {
     text-align: center;
     background-color: #ff7575;
     border: 3px solid #AE0000;
-    border-radius: 12%;
+    border-radius: 10px;
     color: #750000; 
     font-weight:bold; 
     font-size:1.7em;
@@ -123,7 +123,7 @@ body {
     border: 2px solid rgb(17, 122, 75);
     background-color: rgb(194, 229, 213);
     color: rgb(17, 122, 75);
-    border-radius: 12%;
+    border-radius:15px;
     font-size: 1.25em;
     font-weight:bold;
 }

@@ -269,6 +269,7 @@ function againDetectBtuuon_click() {
     document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
     document.getElementById('againDetectBtuuon').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'block';
+    document.getElementById('recommendDiv').style.display = 'none';
 
     document.getElementById('analysisTitle').style.display = 'none';
     document.getElementById('myProperty1').style.display = "none";
@@ -277,7 +278,6 @@ function againDetectBtuuon_click() {
     document.getElementById('myProperty4').style.display = "none";
     document.getElementById('myProperty5').style.display = "none";
     document.getElementById('myProperty6').style.display = "none";
-
 }
 
 
@@ -363,6 +363,8 @@ function showResultValues() {
     //gotSeafoodSuggest();
 
     settingMyProperties();
+
+    document.getElementById('recommendDiv').style.display = 'block';
 }
 
 
