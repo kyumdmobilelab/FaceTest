@@ -382,7 +382,8 @@ function processImage(imageBlob) {
     // **********************************************
 
     // Replace the subscriptionKey string value with your valid subscription key.
-    var subscriptionKey = "c1564ca0154f4dc8a2de2e103c6707f1";
+    var subscriptionKey = "000d2bdb2bbc441c8859254a2f52e08e";
+
 
     // Replace or verify the region.
     //
@@ -392,7 +393,11 @@ function processImage(imageBlob) {
     //
     // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
     // a free trial subscription key, you should not need to change this region.
-    var uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+    
+
+    //var uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+    var uriBase = "https://eastasia.api.cognitive.microsoft.com/face/v1.0/detect"
+
 
     // Request parameters.
     var params = {
