@@ -219,6 +219,8 @@ function countFrequencyOfFaceDetect() {
                 countSec = 5;
                 detectTime = 0;
             }
+        } else if (countSec == 2 && detectTime >= 3) {
+            countTimeAndFetchFace();
         }
 
         countSec--;
