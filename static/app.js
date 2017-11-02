@@ -362,8 +362,6 @@ function showResultValues() {
     document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#ebfff6, #f2f2f2)';
     document.getElementById('againDetectBtuuon').style.display = 'block';
 
-    //gotSeafoodSuggest();
-
     settingMyProperties();
 
     document.getElementById('recommendDiv').style.display = 'block';
@@ -421,7 +419,6 @@ function processImage(imageBlob) {
     })
     .done(function(data) {
         // Show formatted JSON on webpage.
-        $("#responseTextArea").val(JSON.stringify(data, null, 2));
         console.log("Detect done.");
         console.log(JSON.stringify(data, null, 2));
 
@@ -472,9 +469,40 @@ function analysisData(data) {
 }
 
 function analysisMale(data) {
-    if (data["age"] > 40) {
+    if (data["age"] > 75) {
+        // 陽光老人、幸福老人、時髦老人、和藹老人
+        if (data["smile"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "陽光老人";
+        } else if (data["happiness"] > 0.15) {
+            document.getElementById('analysisTitle').innerHTML = "幸福老人";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "時髦老人";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "和藹老人";
+        }
+    } else if (data["age"] > 65 && data["age"] <= 75) {
+        // 開朗爺爺、時髦爺爺、爺爺
+        if (data["smile"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "開朗爺爺";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "時髦爺爺";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "爺爺";
+        }
+    } else if (data["age"] > 50 && data["age"] <= 65) {
+        // 陽光阿伯、時髦阿伯、用功阿伯、一位阿伯
+        if (data["smile"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "陽光阿伯";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "時髦阿伯";
+        } else if (data["glasses"] === "ReadingGlasses") {
+            document.getElementById('analysisTitle').innerHTML = "用功阿伯";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "一位阿伯";
+        }
+    } else if (data["age"] > 40 && data["age"] <= 50) {
         // 憂鬱大叔、凶神惡煞、大俠、黑社會大哥、大老闆、學者、陽光大叔
-        // 雜魚大叔、無名路人、了無生趣
+        // 雜魚大叔、無名路人
         if (data["sadness"] > 0.3) {
             document.getElementById('analysisTitle').innerHTML = "憂鬱大叔";
         } else if (data["anger"] > 0.3) {
@@ -494,13 +522,13 @@ function analysisMale(data) {
         } else if (data["smile"] > 0.2) {
             document.getElementById('analysisTitle').innerHTML = "陽光大叔";
         } else {
-            let maxNum = 2;  
+            let maxNum = 1;  
             let minNum = 0;  
             let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
-            let array = ["雜魚大叔", "無名路人", "了無生趣"];
+            let array = ["雜魚大叔", "無名路人"];
             document.getElementById('analysisTitle').innerHTML = array[n];
         }
-    } else {
+    } else if (data["age"] > 15 && data["age"] <= 40) {
         // 憂鬱小生、小流氓、帥氣青年、耍酷男孩、年輕有為、文青、陽光大男孩
         // 雜魚小弟、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
@@ -522,17 +550,60 @@ function analysisMale(data) {
         } else if (data["smile"] > 0.2) {
             document.getElementById('analysisTitle').innerHTML = "陽光大男孩";
         } else {
-            let maxNum = 2;  
+            let maxNum = 1;  
             let minNum = 0;  
             let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;  
-            let array = ["雜魚小弟", "無名路人", "了無生趣"];
+            let array = ["雜魚小弟", "無名路人"];
             document.getElementById('analysisTitle').innerHTML = array[n];
+        }
+    } else if (data["age"] <= 15) {
+        // 陽光小男孩、好學生、小屁孩、乖小孩
+        if (data["smile"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "陽光小男孩";
+        } else if (data["glasses"] === "ReadingGlasses") {
+            document.getElementById('analysisTitle').innerHTML = "好學生";
+        } else if (data["disgust"] > 0.1 || data["anger"] > 0.1 || data["contempt"] > 0.1) {
+            document.getElementById('analysisTitle').innerHTML = "小屁孩";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "乖小孩";
         }
     }
 }
 
+
 function analysisFemale(data) {
-    if (data["age"] > 40) {
+    if (data["age"] > 75) {
+        // 陽光婆婆、幸福婆婆、時髦婆婆、和藹婆婆
+        if (data["smile"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "陽光婆婆";
+        } else if (data["happiness"] > 0.15) {
+            document.getElementById('analysisTitle').innerHTML = "幸福婆婆";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "時髦婆婆";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "和藹婆婆";
+        }
+    } else if (data["age"] > 65 && data["age"] <= 75) {
+        // 開朗阿婆、時髦阿婆、阿婆
+        if (data["smile"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "開朗阿婆";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "時髦阿婆";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "阿婆";
+        }
+    } else if (data["age"] > 50 && data["age"] <= 65) {
+        // 陽光大嬸、時髦大嬸、用功大嬸、一位大嬸
+        if (data["smile"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "陽光大嬸";
+        } else if (data["glasses"] === "Sunglasses") {
+            document.getElementById('analysisTitle').innerHTML = "時髦大嬸";
+        } else if (data["glasses"] === "ReadingGlasses") {
+            document.getElementById('analysisTitle').innerHTML = "用功大嬸";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "一位大嬸";
+        }
+    } else if (data["age"] > 40 && data["age"] <= 50) {
         // 憂鬱阿姨、憤怒阿姨、女俠、新潮美魔女、女強人、氣質美女、陽光大嬸
         // 雜魚大姊、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
@@ -560,7 +631,7 @@ function analysisFemale(data) {
             let array = ["雜魚大姊", "無名路人", "了無生趣"];
             document.getElementById('analysisTitle').innerHTML = array[n];
         }
-    } else {
+    } else if (data["age"] > 15 && data["age"] <= 40) {
         // 多愁少女、恰北北、時尚美女、前衛少女、文藝少女、氣質少女、妙齡美女
         // 雜魚妹妹、無名路人、了無生趣
         if (data["sadness"] > 0.3) {
@@ -588,12 +659,145 @@ function analysisFemale(data) {
             let array = ["雜魚妹妹", "無名路人", "了無生趣"];
             document.getElementById('analysisTitle').innerHTML = array[n];
         }
+    } else if (data["age"] <= 15) {
+        // 陽光小女孩、好學生、小屁孩、乖小孩
+        if (data["smile"] > 0.3) {
+            document.getElementById('analysisTitle').innerHTML = "陽光小女孩";
+        } else if (data["glasses"] === "ReadingGlasses") {
+            document.getElementById('analysisTitle').innerHTML = "好學生";
+        } else if (data["disgust"] > 0.1 || data["anger"] > 0.1 || data["contempt"] > 0.1) {
+            document.getElementById('analysisTitle').innerHTML = "小屁孩";
+        } else {
+            document.getElementById('analysisTitle').innerHTML = "乖小孩";
+        }
     }
 }
 
 function settingMyProperties() {
     let str = document.getElementById('analysisTitle').innerHTML;
     let array = [];
+
+    // 陽光老人、幸福老人
+    // 陽光婆婆、幸福婆婆
+    if (str === "陽光老人" ||
+        str === "幸福老人" ||
+        str === "陽光婆婆" ||
+        str === "幸福婆婆")
+    {
+        array[0] = '熱愛戶外';
+        array[1] = '情緒開朗';
+        array[2] = '溫柔';
+        array[3] = '毋須煩惱';
+        array[4] = '家庭和樂';
+        array[5] = '幸福美滿';
+    }
+    // 時髦老人、時髦婆婆
+    if (str === "時髦老人" ||
+        str === "時髦婆婆")
+    {
+        array[0] = '熱愛出遊';
+        array[1] = '內心開明';
+        array[2] = '很會打扮';
+        array[3] = '老當益壯';
+        array[4] = '公平正義';
+        array[5] = '比個讚';
+    }
+    // 和藹老人、和藹婆婆
+    if (str === "和藹老人" || 
+        str === "和藹婆婆")
+    {
+        array[0] = '和藹可親';
+        array[1] = '情緒平穩';
+        array[2] = '古稀之年';
+        array[3] = '返老還童';
+        array[4] = '七老八十';
+        array[5] = '兒孫滿堂';
+    }
+
+
+
+    // 開朗爺爺
+    if (str === "開朗爺爺" ||
+        str === "開朗阿婆" )
+    {
+        array[0] = '多多運動';
+        array[1] = '笑口常開';
+        array[2] = '愛家';
+        array[3] = '彩衣娛親';
+        array[4] = '年屆古稀';
+        array[5] = '毋須煩惱';
+    }
+    // 時髦爺爺
+    if (str === "時髦爺爺" ||
+        str === "時髦阿婆")
+    {
+        array[0] = '喜歡出遊';
+        array[1] = '跟上時代';
+        array[2] = '年輕的心';
+        array[3] = '年屆古稀';
+        array[4] = '老玩童';
+        array[5] = '彩衣娛親';
+    }
+    // 爺爺
+    if (str === "爺爺" ||
+        str === "阿婆")
+    {
+        array[0] = '出外走走';
+        array[1] = '多多運動';
+        array[2] = '年屆古稀';
+        array[3] = '保持微笑';
+        array[4] = '寶刀未老';
+        array[5] = '人生開始';
+    }
+
+
+
+    // 陽光阿伯、陽光大嬸
+    if (str === "陽光阿伯" || 
+        str === "陽光大嬸")
+    {
+        array[0] = '陽光開朗';
+        array[1] = '健步如飛';
+        array[2] = '愛家';
+        array[3] = '喜好娛樂';
+        array[4] = '熱心公益';
+        array[5] = '毋須煩惱';
+    }
+    // 時髦阿伯、時髦大嬸
+    if (str === "時髦阿伯" || 
+        str === "時髦大嬸")
+    {
+        array[0] = '出外踏青';
+        array[1] = '彩衣娛親';
+        array[2] = '比個讚';
+        array[3] = '氣質出眾';
+        array[4] = '愛家';
+        array[5] = '人生開始';
+    }
+    // 用功阿伯、用功大嬸
+    if (str === "用功阿伯" || 
+        str === "用功大嬸")
+    {
+        array[0] = '喜歡閱讀';
+        array[1] = '多多出遊';
+        array[2] = '蒸蒸日上';
+        array[3] = '氣質出眾';
+        array[4] = '有點老花';
+        array[5] = '時來運轉';
+    }
+    // 一位阿伯、一位大嬸
+    if (str === "一位阿伯" || 
+        str === "一位大嬸")
+    {
+        array[0] = '廣結善緣';
+        array[1] = '腳麻照跑';
+        array[2] = '顧家';
+        array[3] = '家庭和樂';
+        array[4] = '愛管閒事';
+        array[5] = '路見不平';
+    }
+
+
 
     // 憂鬱大叔、憂鬱阿姨、憂鬱小生、多愁少女
     if (str === "憂鬱大叔" ||
@@ -719,6 +923,48 @@ function settingMyProperties() {
         array[5] = '設定目標';
     }
 
+    // 陽光小男孩、陽光小女孩
+    if (str === "陽光小男孩" ||
+        str === "陽光小女孩" )
+    {
+        array[0] = '喜歡郊遊';
+        array[1] = '情緒開朗';
+        array[2] = '溫柔';
+        array[3] = '無憂無慮';
+        array[4] = '受人疼愛';
+        array[5] = '開心果';
+    }
+    // 好學生
+    if (str === "好學生") {
+        array[0] = '用功讀書';
+        array[1] = '尊師重道';
+        array[2] = '成績不錯';
+        array[3] = '頭腦聰明';
+        array[4] = '勇往直前';
+        array[5] = '設定目標';
+    }
+    
+    // 小屁孩
+    if (str === "小屁孩") {
+        array[0] = '勇往直前';
+        array[1] = '不怕權威';
+        array[2] = '嘴巴很賤';
+        array[3] = '不受控制';
+        array[4] = '欠揍';
+        array[5] = '白目';
+    }
+    
+    // 乖小孩
+    if (str === "乖小孩") {
+        array[0] = '欠缺特色';
+        array[1] = '情緒乖巧';
+        array[2] = '聽話';
+        array[3] = '令人疼愛';
+        array[4] = '設定目標';
+        array[5] = '繼續加油';
+    }
+
+
     // display:
     document.getElementById('myProperty1').innerText = array[0];
     document.getElementById('myProperty2').innerText = array[1];
@@ -734,138 +980,3 @@ function settingMyProperties() {
     document.getElementById('myProperty5').style.display = "block";
     document.getElementById('myProperty6').style.display = "block";
 }
-
-
-/*
-function gotSeafoodSuggest() {
-    let str = document.getElementById('analysisTitle').innerHTML.replace(/&nbsp;/g, '');
-
-    // 路人
-    if (str === "雜魚妹妹" ||
-        str === "雜魚大姊" ||
-        str === "雜魚小弟" ||
-        str === "雜魚大叔" ||
-        str === "無名路人" ||
-        str === "了無生趣")
-    {
-        let array = [
-            "忙忙碌碌苦中求，<br/>何日雲開見日頭；<br/>難得祖基家可立，<br/>中年衣食漸無憂。",
-            "此命福氣果如何，<br/>僧道門中衣祿多；<br/>離祖出家方為妙，<br/>朝晚拜佛念彌陀。",
-            "勞勞碌碌苦中求，<br/>東奔西走何日休；<br/>若能終身勤與儉，<br/>老來稍可免憂愁。"
-        ];
-
-        let maxNum = 2;  
-        let minNum = 0;
-        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-
-        document.getElementById('SuggestText').innerHTML = array[n];
-    }
-
-    // 憂鬱
-    if (str === "憂鬱大叔" ||
-        str === "憂鬱小生" ||
-        str === "憂鬱阿姨" ||
-        str === "多愁少女")
-    {
-        let array = [
-            "萬事由天莫苦求，<br/>須知福祿賴人修；<br/>中年財帛難如意，<br/>晚景欣然便不憂。",
-            "平生衣祿苦中求，<br/>獨自營謀事不休；<br/>離祖出門宜早計，<br/>晚來衣食自無憂。",
-            "得寬懷處且寬懷，<br/>何用雙眉皺不開；<br/>若使中年命運濟，<br/>那時名利一齊來。"
-        ];
-
-        let maxNum = 2;  
-        let minNum = 0;
-        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-
-        document.getElementById('SuggestText').innerHTML = array[n];
-    }
-
-    // 憤怒
-    if (str === "凶神惡煞" ||
-        str === "小流氓" ||
-        str === "憤怒阿姨" ||
-        str === "恰北北")
-    {
-        let array = [
-            "一生作事少商量，<br/>難靠祖宗作主張；<br/>獨馬單槍空做去，<br/>早年晚歲總無長。",
-            "為利為名終日勞，<br/>中年福祿也多遭；<br/>老年自有財星照，<br/>不比前番目下高。",
-            "走馬揚鞭爭利名，<br/>少年做事費評論；<br/>一朝福祿源源至，<br/>富貴榮華顯六親。"
-        ];
-
-        let maxNum = 2;  
-        let minNum = 0;
-        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-
-        document.getElementById('SuggestText').innerHTML = array[n];
-    }
-
-    // 墨鏡
-    if (str === "大俠" ||
-        str === "黑社會大哥" ||
-        str === "帥氣青年" ||
-        str === "耍酷男孩" ||
-        str === "女俠" ||
-        str === "新潮美魔女" ||
-        str === "時尚美女" ||
-        str === "前衛少女")
-    {
-        let array = [
-            "一世榮華事事通，<br/>不須勞苦自亨通；<br/>弟兄叔侄皆如意，<br/>家業成時福祿宏。",
-            "平生福祿自然來，<br/>名利兼全福壽偕；<br/>雁塔題名為貴客，<br/>紫袍玉帶走金階。",
-            "此命推來福不輕，<br/>自成自立顯門庭；<br/>從來富貴人親近，<br/>使婢差奴過一生。",
-            "走馬揚鞭爭利名，<br/>少年做事費評論；<br/>一朝福祿源源至，<br/>富貴榮華顯六親。",
-            "此命威權不可當，<br/>紫袍金帶坐高堂；<br/>榮華富貴誰能及，<br/>百世留名姓氏揚。"
-        ];
-
-        let maxNum = 4;  
-        let minNum = 0;
-        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-
-        document.getElementById('SuggestText').innerHTML = array[n];
-    }
-
-    // 大老闆
-    if (str === "大老闆" ||
-        str === "學者" ||
-        str === "年輕有為" ||
-        str === "文青" ||
-        str === "女強人" ||
-        str === "氣質美女")
-    {
-        let array = [
-            "細推此命福不輕，<br/>富貴榮華孰與爭；<br/>定國安邦榮品人，<br/>威聲顯赫四方聞。",
-            "命主為官福祿長，<br/>得來富貴定非常；<br/>名題雁塔傳金榜，<br/>顯耀門庭天下揚。",
-            "細推此格秀且清，<br/>必定財高學業成；<br/>甲第之中應有分，<br/>揚鞭走馬顯威榮。",
-            "此命推來厚且清，<br/>詩書滿腹功業成；<br/>豐衣足食自然穩，<br/>正是人間有福人。"
-        ];
-
-        let maxNum = 3;  
-        let minNum = 0;
-        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-
-        document.getElementById('SuggestText').innerHTML = array[n];
-    }
-
-    //陽光
-    if (str === "文藝少女" ||
-        str === "氣質少女" ||
-        str === "陽光大叔" ||
-        str === "陽光大男孩" ||
-        str === "陽光大嬸" ||
-        str === "妙齡美女")
-    {
-        let array = [
-            "此命生來福不窮，<br/>讀書必定顯親族；<br/>紫衣金帶為卿相，<br/>富貴榮華皆可同。",
-            "不作朝中金榜客，<br/>官為世上一財翁；<br/>聰明天賦經書熟，<br/>名顯高科自是榮。",
-            "此命推來是不同，<br/>為人能幹異凡庸；<br/>中年還有逍遙福，<br/>不比前年運未通。",
-            "君是人間衣祿星，<br/>一生富貴眾人欽；<br/>縱然福祿由天定，<br/>安享榮華過一生。"
-        ];
-
-        let maxNum = 3;  
-        let minNum = 0;
-        let n = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
-
-        document.getElementById('SuggestText').innerHTML = array[n];
-    }
-}*/
-
