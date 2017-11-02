@@ -221,6 +221,8 @@ function takeSnapshotBtuuon_click() {
     document.getElementById('otherMsgTitle').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'none';
     document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
+    //document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#f8f8f8, #f8f8f8)';
+    document.getElementById('bgbgImage').style.display = 'none';
 
     const myFirstPromise = new Promise((resolve, reject) => {
         // 執行一些非同步作業，最終呼叫:
@@ -267,8 +269,11 @@ function againDetectBtuuon_click() {
     document.getElementById('otherDiv').style.display = 'none';
     document.getElementById('resultDiv').style.display = 'none';
     document.getElementById('frameDiv').style.borderWidth = '0px';
-    // document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
-    document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#f8f8f8, #f8f8f8)';
+
+    document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
+    //document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#f8f8f8, #f8f8f8)';
+    document.getElementById('bgbgImage').style.display = 'none';;
+
     document.getElementById('againDetectBtuuon').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'block';
     document.getElementById('recommendDiv').style.display = 'none';
@@ -361,9 +366,11 @@ function showResultValues() {
     document.getElementById('resultDiv').style.display = 'block';
     document.getElementById('otherMsgTitle').style.display = 'block';
     document.getElementById('frameDiv').style.borderWidth = '1px';
-    // document.getElementById('frameDiv').style.backgroundColor = '#ebfff6';
-    document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#ebfff6, #f2f2f2)';
     document.getElementById('againDetectBtuuon').style.display = 'block';
+
+    //document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#005757, #00E3E3)';
+    document.getElementById('bgbgImage').style.display = 'block';
+
 
     settingMyProperties();
 
@@ -377,64 +384,64 @@ function drawAnalysisCanvasLines() {
     // title
     ctx.beginPath();
     ctx.lineWidth = 4;
-    ctx.strokeStyle = '#AE0000';
-    ctx.moveTo(40,113);
-    ctx.lineTo(160,113);
+    ctx.strokeStyle = '#FF5151';
+    ctx.moveTo(40,109);
+    ctx.lineTo(160,109);
     ctx.lineTo(190,135);
     ctx.stroke();
 
     // 1
     ctx.beginPath();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = '#117a4b';
-    ctx.moveTo(20,188);
-    ctx.lineTo(116,188);
+    ctx.strokeStyle = '#FFFF93';
+    ctx.moveTo(20,186);
+    ctx.lineTo(116,186);
     ctx.lineTo(143,205);
     ctx.stroke();
 
     // 2
     ctx.beginPath();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = '#117a4b';
+    ctx.strokeStyle = '#FFFF93';
     ctx.moveTo(325,145);
-    ctx.lineTo(342,128);
-    ctx.lineTo(445,128);
+    ctx.lineTo(342,126);
+    ctx.lineTo(445,126);
     ctx.stroke();
 
     // 3
     ctx.beginPath();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = '#117a4b';
-    ctx.moveTo(13,268);
-    ctx.lineTo(116,268);
+    ctx.strokeStyle = '#FFFF93';
+    ctx.moveTo(13,266);
+    ctx.lineTo(116,266);
     ctx.lineTo(145,259);
     ctx.stroke();
 
     // 4
     ctx.beginPath();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = '#117a4b';
+    ctx.strokeStyle = '#FFFF93';
     ctx.moveTo(358,235);
-    ctx.lineTo(392,219);
-    ctx.lineTo(488,219);
+    ctx.lineTo(392,217);
+    ctx.lineTo(488,217);
     ctx.stroke();
 
     // 5
     ctx.beginPath();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = '#117a4b';
-    ctx.moveTo(62,358);
-    ctx.lineTo(175,358);
+    ctx.strokeStyle = '#FFFF93';
+    ctx.moveTo(62,356);
+    ctx.lineTo(175,356);
     ctx.lineTo(210,325);
     ctx.stroke();
     
     // 6
     ctx.beginPath();
     ctx.lineWidth = 2;
-    ctx.strokeStyle = '#117a4b';
+    ctx.strokeStyle = '#FFFF93';
     ctx.moveTo(320,308);
-    ctx.lineTo(350,335);
-    ctx.lineTo(465,335);
+    ctx.lineTo(350,333);
+    ctx.lineTo(465,333);
     ctx.stroke();
 }
 

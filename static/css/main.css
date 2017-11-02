@@ -79,12 +79,14 @@ body {
 }
 
 #frameDiv {
+    clear: both;
+    position: relative;
     width: 500px;
     border: 0px solid rgb(189, 189, 189);
     margin-left: auto;
     margin-right: auto;
     margin-top: 0px;
-    background-color: rgb(235, 255, 246);
+    background-color: #005757;
 }
 
 #otherDiv {
@@ -106,6 +108,7 @@ body {
     margin-bottom: 25px;
     font-weight: bold;
     font-size: 1.5em;
+    color: white;
 }
 
 #faceImage {
@@ -119,15 +122,32 @@ body {
     top: 120px;
     left: 145px;
     border-radius: 50%;
-    border: 5px solid #01B468;
+    border: 5px solid #FFE153;
     background-color: rgb(34, 34, 34);
+}
+
+#bgFaceImage {
+    display: block;
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    top: 85px;
+    left: 110px;
+}
+
+#bgbgImage {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
 }
 
 .analysisText {
     position: absolute;
     text-align: center;
-    background-color: #ff7575;
-    border: 3px solid #AE0000;
+    background-color: #ff8f8f;
+    /*border: 3px solid #AE0000;*/
     border-radius: 10px;
     color: #750000; 
     font-weight:bold; 
@@ -140,10 +160,10 @@ body {
     text-align: center;
     width: 110px;
     height: 28px;
-    border: 2px solid rgb(17, 122, 75);
-    background-color: rgb(194, 229, 213);
+    /*border: 2px solid rgb(17, 122, 75);*/
+    background-color: rgb(206, 248, 229);
     color: rgb(17, 122, 75);
-    border-radius:15px;
+    border-radius:12px;
     font-size: 1.25em;
     font-weight:bold;
 }
