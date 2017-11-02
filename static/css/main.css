@@ -87,6 +87,15 @@ body {
     margin-right: auto;
     margin-top: 0px;
     background-color: #005757;
+    border-radius: 15px;    
+}
+
+#bgbgImage {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
 }
 
 #otherDiv {
@@ -133,14 +142,6 @@ body {
     height: 280px;
     top: 85px;
     left: 110px;
-}
-
-#bgbgImage {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
 }
 
 .analysisText {
