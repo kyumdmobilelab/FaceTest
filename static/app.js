@@ -195,7 +195,7 @@ function switchChange(e) {
 }
 
 function countFrequencyOfFaceDetect() {
-    var countSec = 5;
+    var countSec = 4;
     var detectTime = 0;
 
     countFrequencyOfFaceDetectTimerId  = setInterval(function(){
@@ -213,10 +213,10 @@ function countFrequencyOfFaceDetect() {
         }
 
         if (countSec < 0) {
-            if (detectTime >= 4) {
+            if (detectTime >= 3) {
                 countTimeAndFetchFace();
             } else {
-                countSec = 6;
+                countSec = 5;
                 detectTime = 0;
             }
         }
