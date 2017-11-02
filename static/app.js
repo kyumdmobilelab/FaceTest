@@ -177,24 +177,68 @@ drawAnalysisCanvasLines();
 //------------------------------------------
 
 var autoFetchFaceImageTimerId = null;
+var countFrequencyOfFaceDetectTimerId = null;
+
 
 function switchChange(e) {
     //console.log(e.checked);
     if (e.checked) {
-        var countSec = 5;
-        autoFetchFaceImageTimerId = setInterval(function(){
-            let sec = (countSec >= 0) ? countSec : 0;
-            document.getElementById('countSecond').innerText = "倒數 " + sec + " 秒...";
-            if (countSec < 0) {
-                autoFetchFaceImage();
-            }
-            countSec--;
-        }, 1000);
+        countFrequencyOfFaceDetect();
     } else {
         if (autoFetchFaceImageTimerId) {
             clearInterval(autoFetchFaceImageTimerId);
         }
+        if (countFrequencyOfFaceDetectTimerId) {
+            clearInterval(countFrequencyOfFaceDetectTimerId);
+        }
     }
+}
+
+function countFrequencyOfFaceDetect() {
+    var countSec = 5;
+    var detectTime = 0;
+
+    countFrequencyOfFaceDetectTimerId  = setInterval(function(){
+        console.log("countFrequencyOfFaceDetect: " + countSec)
+
+        let w = localVideo.videoWidth;
+        let rangeW = w/4;
+        let faceCenterX = FaceCompX + (FaceCompWidth/2);
+    
+        if (FaceCompWidth > 130 && FaceCompHeight > 130) {
+            if (faceCenterX >= rangeW && faceCenterX <= (rangeW*3)) {
+                detectTime++;
+                console.log("countFrequencyOfFaceDetect, faceOutTime: " + detectTime)
+            }
+        }
+
+        if (countSec < 0) {
+            if (detectTime >= 4) {
+                countTimeAndFetchFace();
+            } else {
+                countSec = 6;
+                detectTime = 0;
+            }
+        }
+
+        countSec--;
+    }, 1000);
+}
+
+function countTimeAndFetchFace() {
+    if (countFrequencyOfFaceDetectTimerId) {
+        clearInterval(countFrequencyOfFaceDetectTimerId);
+    }
+
+    var countSec = 3;
+    autoFetchFaceImageTimerId = setInterval(function(){
+        let sec = (countSec >= 0) ? countSec : 0;
+        document.getElementById('countSecond').innerText = sec + " 秒後抓取臉部，請將您的臉面向鏡頭...";
+        if (countSec < 0) {
+            autoFetchFaceImage();
+        }
+        countSec--;
+    }, 1000);
 }
 
 function autoFetchFaceImage() {
@@ -203,8 +247,14 @@ function autoFetchFaceImage() {
 
     document.getElementById('countSecond').innerText = "嘗試抓取臉部，請靠近鏡頭..."
 
-    if (FaceCompWidth > 125 && FaceCompHeight > 125) {
-        takeSnapshotBtuuon_click();
+    let w = localVideo.videoWidth;
+    let rangeW = w/4;
+    let faceCenterX = FaceCompX + (FaceCompWidth/2);
+
+    if (FaceCompWidth > 130 && FaceCompHeight > 130) {
+        if (faceCenterX >= rangeW && faceCenterX <= (rangeW*3)) {
+            takeSnapshotBtuuon_click();
+        }
     }
 }
 
@@ -212,7 +262,6 @@ function takeSnapshotBtuuon_click() {
     if (autoFetchFaceImageTimerId) {
         clearInterval(autoFetchFaceImageTimerId);
         document.getElementById('countSecond').innerText = "";
-        document.getElementById('switch_checkbox').checked = false;
     }
 
     document.getElementById('panelDiv').style.display = 'none';
@@ -287,6 +336,10 @@ function againDetectBtuuon_click() {
     document.getElementById('myProperty6').style.display = "none";
 
     document.getElementById('analysisCanvas').style.display = "none";
+
+    if (document.getElementById('switch_checkbox').checked) {
+        countFrequencyOfFaceDetect();
+    }
 }
 
 
