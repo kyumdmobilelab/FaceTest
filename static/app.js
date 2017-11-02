@@ -172,6 +172,7 @@ function start() {
 videoSelect.onchange = start;
 
 start();
+drawAnalysisCanvasLines();
 
 //------------------------------------------
 
@@ -279,6 +280,8 @@ function againDetectBtuuon_click() {
     document.getElementById('myProperty4').style.display = "none";
     document.getElementById('myProperty5').style.display = "none";
     document.getElementById('myProperty6').style.display = "none";
+
+    document.getElementById('analysisCanvas').style.display = "none";
 }
 
 
@@ -365,6 +368,74 @@ function showResultValues() {
     settingMyProperties();
 
     document.getElementById('recommendDiv').style.display = 'block';
+}
+
+function drawAnalysisCanvasLines() {
+    let aCanvas =document.getElementById("analysisCanvas");
+    let ctx = aCanvas.getContext("2d");
+
+    // title
+    ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#AE0000';
+    ctx.moveTo(40,113);
+    ctx.lineTo(160,113);
+    ctx.lineTo(190,135);
+    ctx.stroke();
+
+    // 1
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#117a4b';
+    ctx.moveTo(20,188);
+    ctx.lineTo(116,188);
+    ctx.lineTo(143,205);
+    ctx.stroke();
+
+    // 2
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#117a4b';
+    ctx.moveTo(325,145);
+    ctx.lineTo(342,128);
+    ctx.lineTo(445,128);
+    ctx.stroke();
+
+    // 3
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#117a4b';
+    ctx.moveTo(13,268);
+    ctx.lineTo(116,268);
+    ctx.lineTo(145,259);
+    ctx.stroke();
+
+    // 4
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#117a4b';
+    ctx.moveTo(358,235);
+    ctx.lineTo(392,219);
+    ctx.lineTo(488,219);
+    ctx.stroke();
+
+    // 5
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#117a4b';
+    ctx.moveTo(62,358);
+    ctx.lineTo(175,358);
+    ctx.lineTo(210,325);
+    ctx.stroke();
+    
+    // 6
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#117a4b';
+    ctx.moveTo(320,308);
+    ctx.lineTo(350,335);
+    ctx.lineTo(465,335);
+    ctx.stroke();
 }
 
 
@@ -979,4 +1050,6 @@ function settingMyProperties() {
     document.getElementById('myProperty4').style.display = "block";
     document.getElementById('myProperty5').style.display = "block";
     document.getElementById('myProperty6').style.display = "block";
+
+    document.getElementById('analysisCanvas').style.display = "block";
 }
