@@ -232,12 +232,27 @@ function countTimeAndFetchFace() {
         clearInterval(countFrequencyOfFaceDetectTimerId);
     }
 
-    var countSec = 3;
+    var countSec = 1;
+    var fetchTime = 0;
     autoFetchFaceImageTimerId = setInterval(function(){
         let sec = (countSec >= 0) ? countSec : 0;
         document.getElementById('countSecond').innerText = sec + " 秒後抓取臉部，請將您的臉面向鏡頭...";
+        
         if (countSec < 0) {
+            if (fetchTime >= 12) {
+                if (autoFetchFaceImageTimerId) {
+                    clearInterval(autoFetchFaceImageTimerId);
+                    document.getElementById('countSecond').innerText = "";
+
+                    if (document.getElementById('switch_checkbox').checked) {
+                        countFrequencyOfFaceDetect();
+                    }
+                    
+                    return;
+                }
+            }
             autoFetchFaceImage();
+            fetchTime++;
         }
         countSec--;
     }, 1000);
