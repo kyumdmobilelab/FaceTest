@@ -330,6 +330,10 @@ function clipImageDone(context) {
 
 
 function againDetectBtuuon_click() {
+    if (showResultCountTimerId) {
+        clearInterval(showResultCountTimerId);
+    }
+
     document.getElementById('panelDiv').style.display = 'block';
     document.getElementById('progressDiv').style.display = 'none';
     document.getElementById('otherDiv').style.display = 'none';
@@ -341,6 +345,7 @@ function againDetectBtuuon_click() {
     document.getElementById('bgbgImage').style.display = 'none';;
 
     document.getElementById('againDetectBtuuon').style.display = 'none';
+    document.getElementById('showResultTimeCount').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'block';
     document.getElementById('recommendDiv').style.display = 'none';
 
@@ -359,10 +364,27 @@ function againDetectBtuuon_click() {
     }
 }
 
+var showResultCountTimerId = null;
 
 function showResultValues() {
+    var countTime = 20;
+
+    showResultCountTimerId = setInterval(function(){
+        if (countTime < 11) {
+            document.getElementById('showResultTimeCount').innerText = countTime + " 秒後關閉分析結果...";
+            document.getElementById('showResultTimeCount').style.display = 'block';
+        }
+        if (countTime < 0) {
+            againDetectBtuuon_click();
+        }
+        countTime--;
+    }, 1000);
+
+
     if (!resultJSON) {
+        countTime = 3;
         document.getElementById('otherMsgTitle').innerText = "[ 分析失敗!! ]";
+        document.getElementById('otherMsgTitle').style.color = "#3C3C3C";
         document.getElementById('otherMsgTitle').style.display = 'block';
         document.getElementById('progressDiv').style.display = 'none';
         document.getElementById('againDetectBtuuon').style.display = 'block';
@@ -373,8 +395,11 @@ function showResultValues() {
 
     if (info) {
         document.getElementById('otherMsgTitle').innerText = "[ 分析結果 ]";
+        document.getElementById('otherMsgTitle').style.color = "#FCFCFC";
     } else {
+        countTime = 3;
         document.getElementById('otherMsgTitle').innerText = "[ 分析失敗!! ]";
+        document.getElementById('otherMsgTitle').style.color = "#3C3C3C";
         document.getElementById('otherMsgTitle').style.display = 'block';
         document.getElementById('progressDiv').style.display = 'none';
         document.getElementById('againDetectBtuuon').style.display = 'block';
@@ -580,10 +605,8 @@ function processImage(imageBlob) {
             jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
         console.log(errorString);
 
-        document.getElementById('otherMsgTitle').innerText = "[ 分析失敗!! ]";
-        document.getElementById('otherMsgTitle').style.display = 'block';
-        document.getElementById('progressDiv').style.display = 'none';
-        document.getElementById('againDetectBtuuon').style.display = 'block';
+        resultJSON = null;
+        showResultValues();
     });
 }
 
