@@ -18,72 +18,80 @@
 <div id="bgViewDiv">
     <div id="titleDiv">
         <div style="font-size:2.2em; font-weight:bold;">高苑面相館</div>
-        <div style="font-size:0.9em; float: right;">不準不要錢</div><br />
+        <div style="font-size:0.9em; float:right; margin-right:10px;">不準不要錢</div><br />
         <hr />
     </div>
-    <div id="progressDiv" style="display:none;">
-        <div style="text-align:center; margin-left:auto; margin-right:auto; margin-top:10px; margin-bottom:10px; font-weight: bold;">分析中...</div>
-        <img style="margin-left:auto; margin-right:auto; display:block; margin-top:20px; margin-bottom:20px;" src="images/ajax-loader.gif"/>
-        <br>
-    </div>
-    <div style="width: 500px; margin-left: auto; margin-right: auto;" id="chooseCameraDiv">
-        <label for="videoSource">Camera source: </label><select id="videoSource"></select>
-    </div>
-    <div id="panelDiv">
-        <video id="localVideo" autoplay playsinline muted></video>
-        <canvas id="localCanvas"></canvas>
-        <div style="position: relative;">
-            <label class="switch">
-                <input type="checkbox" onchange="switchChange(this)" id="switch_checkbox">
-                <span class="slider round"></span>
-            </label>
-            <div style="position: absolute; top:8px; left:68px; font-size:0.9em;">自動抓取臉部</div>
-            <button id="takeSnapshotBtuuon" onclick="takeSnapshotBtuuon_click()">臉部分析</button>          
+    <div id="mainDiv">
+        <div id="progressDiv" style="display:none;">
+            <div style="text-align:center; margin-left:auto; margin-right:auto; margin-top:10px; margin-bottom:10px; font-weight: bold;">分析中...</div>
+            <img style="margin-left:auto; margin-right:auto; display:block; margin-top:20px; margin-bottom:20px;" src="images/ajax-loader.gif"/>
+            <br>
         </div>
-        <div id="countSecond" style="margin-top:10px; margin-left:2px;"></div>
-    </div>
-    <div id="frameDiv">
-        <img id="bgbgImage" src="images/bg.jpg" />
-        <div id="otherDiv" style="display:none;">
-            
-            <div id="otherMsgTitle">[ 分析結果 ]</div>
-            <img id="faceImage" />
-            <img id="bgFaceImage" src="images/roundLine.png" />
-            
-            <div id="analysisTitle" class="analysisText" style="top:66px; left:20px; display:none;"></div>
-            <div id="myProperty1" class="myProperty" style="top:150px; left:13px; display:none;"></div>
-            <div id="myProperty2" class="myProperty" style="top:90px; left:340px; display:none;"></div>
-            <div id="myProperty3" class="myProperty" style="top:230px; left:5px; display:none;"></div>
-            <div id="myProperty4" class="myProperty" style="top:180px; left:380px; display:none;"></div>
-            <div id="myProperty5" class="myProperty" style="top:320px; left:55px; display:none;"></div>
-            <div id="myProperty6" class="myProperty" style="top:295px; left:355px; display:none;"></div>
-            <canvas id="analysisCanvas" width="500" height="400" style="display:none;"></canvas>
+        <div style="width: 500px; margin-left: auto; margin-right: auto;" id="chooseCameraDiv">
+            <label for="videoSource">Camera source: </label><select id="videoSource"></select>
         </div>
-        <div id="resultDiv" style="display:none;">
-            <div style="clear:both; position: relative; margin-top:10px; margin-bottom:20px; height:150px; ">
-                <div class="basicProperty" style="float:left; left:60px;">
-                    <div id="genderValue" style="text-align: center; height:120px; line-height:120px"></div>
+        <div id="panelDiv">
+            <video id="localVideo" autoplay playsinline muted></video>
+            <canvas id="localCanvas"></canvas>
+            <div style="position: relative;">
+                <label class="switch">
+                    <input type="checkbox" onchange="switchChange(this)" id="switch_checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <div style="position: absolute; top:8px; left:68px; font-size:0.9em;">自動抓取臉部</div>
+                <button id="takeSnapshotBtuuon" onclick="takeSnapshotBtuuon_click()">臉部分析</button>          
+            </div>
+            <div id="countSecond" style="margin-top:10px; margin-left:2px;"></div>
+        </div>
+        <div id="frameDiv">
+            <img id="bgbgImage" src="images/bg.jpg" />
+            <div id="otherDiv" style="display:none;">
+                
+                <div id="otherMsgTitle">[ 分析結果 ]</div>
+                <img id="faceImage" />
+                <img id="bgFaceImage" src="images/roundLine.png" />
+                
+                <div id="analysisTitle" class="analysisText" style="top:66px; left:20px; display:none;"></div>
+                <div id="myProperty1" class="myProperty" style="top:150px; left:13px; display:none;"></div>
+                <div id="myProperty2" class="myProperty" style="top:90px; left:340px; display:none;"></div>
+                <div id="myProperty3" class="myProperty" style="top:230px; left:5px; display:none;"></div>
+                <div id="myProperty4" class="myProperty" style="top:180px; left:380px; display:none;"></div>
+                <div id="myProperty5" class="myProperty" style="top:320px; left:55px; display:none;"></div>
+                <div id="myProperty6" class="myProperty" style="top:295px; left:355px; display:none;"></div>
+                <canvas id="analysisCanvas" width="500" height="400" style="display:none;"></canvas>
+            </div>
+            <div id="resultDiv" style="display:none;">
+                <div style="clear:both; position: relative; margin-top:10px; margin-bottom:20px; height:150px; ">
+                    <div class="basicProperty" style="float:left; left:60px;">
+                        <div id="genderValue" style="text-align: center; height:120px; line-height:120px"></div>
+                    </div>
+                    <div class="basicProperty" style="float:right; right:60px;">
+                        <div id="ageValue" style="text-align: center; height:120px; line-height:120px"></div>
+                    </div>
                 </div>
-                <div class="basicProperty" style="float:right; right:60px;">
-                    <div id="ageValue" style="text-align: center; height:120px; line-height:120px"></div>
+                <div style="clear:both; margin-top:50px; margin-bottom:30px; display:none;">
+                    <div style="display:none;">
+                        <div id="glassesValue" class="resultText"></div>
+                        <div id="smileValue" class="resultText"></div>
+                        <div id="angerValue" class="resultText"></div>
+                        <div id="contemptValue" class="resultText"></div>
+                        <div id="disgustValue" class="resultText"></div>
+                        <div id="fearValue" class="resultText"></div>
+                        <div id="happinessValue" class="resultText"></div>
+                        <div id="neutralValue" class="resultText"></div>
+                        <div id="sadnessValue" class="resultText"></div>
+                        <div id="surpriseValue" class="resultText"></div>
+                    </div>
                 </div>
             </div>
-            <div style="clear:both; margin-top:50px; margin-bottom:30px; display:none;">
-                <div style="display:none;">
-                    <div id="glassesValue" class="resultText"></div>
-                    <div id="smileValue" class="resultText"></div>
-                    <div id="angerValue" class="resultText"></div>
-                    <div id="contemptValue" class="resultText"></div>
-                    <div id="disgustValue" class="resultText"></div>
-                    <div id="fearValue" class="resultText"></div>
-                    <div id="happinessValue" class="resultText"></div>
-                    <div id="neutralValue" class="resultText"></div>
-                    <div id="sadnessValue" class="resultText"></div>
-                    <div id="surpriseValue" class="resultText"></div>
-                </div>
-            </div>
+        </div>
+
+        <div id="againDetectDiv">
+            <div id="showResultTimeCount"></div>
+            <button id="againDetectBtuuon" onclick="againDetectBtuuon_click()" style="display:none;">重新分析</button>
         </div>
     </div>
+
     <div id="recommendDiv" style="display:none;">
         <div id="recommendTitle">推薦商品</div>
         <table id="recommendTable">
@@ -93,25 +101,31 @@
                 <th>價格</th>
             </tr>
             <tr>
-              <td><img src="images/coke.jpg" style="width:100px; height:100px;" class="recommendImg" /></td>
-              <td>可口可樂</td> 
-              <td>原價 100 元，<br/>現在特價<strong style="font-size:1.3em;font-weight:bold;"> 89 </strong>元。</td>
+                <td><img src="images/coke.jpg" style="width:100px; height:100px;" class="recommendImg" /></td>
+                <td>可口可樂</td> 
+                <td>原價 100 元，<br/>現在特價<strong style="font-size:1.3em;font-weight:bold;"> 89 </strong>元。</td>
             </tr>
             <tr>
-              <td><img src="images/sunglasses.jpg" style="width:100px; height:70px;" class="recommendImg" /></td>
-              <td>新潮墨鏡</td> 
-              <td>原價 1500 元，<br/>現在特價<strong style="font-size:1.3em;font-weight:bold;"> 999 </strong>元。</td>
+                <td><img src="images/sunglasses.jpg" style="width:100px; height:100px;" class="recommendImg" /></td>
+                <td>新潮墨鏡</td> 
+                <td>原價 1500 元，<br/>現在特價<strong style="font-size:1.3em;font-weight:bold;"> 990 </strong>元。</td>
             </tr>
             <tr>
-              <td><img src="images/book.jpg" style="width:100px; height:100 px;" class="recommendImg" /></td>
-              <td>《怦然心動的人生整理魔法》</td> 
-              <td>原價 250 元，<br/>現在特價<strong style="font-size:1.3em;font-weight:bold;"> 188 </strong>元。</td>
+                <td><img src="images/book.jpg" style="width:100px; height:100 px;" class="recommendImg" /></td>
+                <td>《怦然心動的人生整理魔法》</td> 
+                <td>原價 250 元，<br/>現在特價<strong style="font-size:1.3em;font-weight:bold;"> 188 </strong>元。</td>
+            </tr>
+            <tr>
+                <td><img src="images/sneakers.jpg" style="width:100px; height:100 px;" class="recommendImg" /></td>
+                <td>喬丹籃球鞋</td> 
+                <td>原價 5000 元，<br/>現在特價<strong style="font-size:1.3em;font-weight:bold;"> 2990 </strong>元。</td>
+            </tr>
+            <tr>
+                <td><img src="images/t-shirt.jpg" style="width:100px; height:100 px;" class="recommendImg" /></td>
+                <td>名牌潮T</td> 
+                <td>原價 1200 元，<br/>現在特價<strong style="font-size:1.3em;font-weight:bold;"> 890 </strong>元。</td>
             </tr>
         </table>
-    </div>
-    <div id="againDetectDiv">
-        <div id="showResultTimeCount"></div>
-        <button id="againDetectBtuuon" onclick="againDetectBtuuon_click()" style="display:none;">重新分析</button>
     </div>
 </div>
 </body>
