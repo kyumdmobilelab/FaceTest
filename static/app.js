@@ -171,6 +171,11 @@ function start() {
 
 videoSelect.onchange = start;
 
+
+// start
+var mainDiv = document.getElementById("mainDiv");
+mainDiv.style.left = (window.innerWidth/2 - 500/2) + "px";
+
 start();
 drawAnalysisCanvasLines();
 
@@ -334,6 +339,8 @@ function againDetectBtuuon_click() {
         clearInterval(showResultCountTimerId);
     }
 
+    mainDiv.style.left = (window.innerWidth/2 - 500/2) + "px";
+
     document.getElementById('panelDiv').style.display = 'block';
     document.getElementById('progressDiv').style.display = 'none';
     document.getElementById('otherDiv').style.display = 'none';
@@ -454,6 +461,8 @@ function showResultValues() {
         "sadness" : emotionInfo["sadness"],
         "surprise" : emotionInfo["surprise"]
     };
+
+    mainDiv.style.left = "95px";
 
     analysisData(aData);
 
