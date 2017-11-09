@@ -21,6 +21,11 @@
 
         let audio = new Audio("audio/scan.mp3");
 
+        startBtuuon.addEventListener("click", function() {
+            audio.play();
+            audio.pause();
+        });
+
         let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
         scanner.addListener('scan', function (content) {
             audio.play();
