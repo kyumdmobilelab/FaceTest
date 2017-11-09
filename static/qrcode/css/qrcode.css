@@ -18,11 +18,7 @@ body, html{
 
 #startBtuuon {
     position: absolute;
-    /*margin-top: auto;
-    margin-bottom: auto;
-    margin-left: auto;
-    margin-right: auto;*/
-    width: 200px;
+    width: 250px;
     height: 50px;
     background-color: 	#FF8000;
     color: white;
