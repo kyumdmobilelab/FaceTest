@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QRCode Scanner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script type="text/javascript" src="js/instascan.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/qrcode.css" />
+</head>
+<body>
+    <video id="preview" style="display:none;" playsinline></video>
+    <div id="resultDiv" style="display:none;"></div>
+    <button id="startBtuuon" onclick="startBtuuon_click()" style="display:block;">QRCode Scan</button>
+
+    <script type="text/javascript">
+        document.getElementById('preview').style.width = window.innerWidth + "px";
+        document.getElementById('preview').style.height = window.innerHeight + "px";
+
+        let startBtuuon = document.getElementById('startBtuuon');
+        startBtuuon.style.top = ((window.innerHeight/2) - (50/2)) + "px";
+        startBtuuon.style.left = ((window.innerWidth/2) - (200/2)) + "px";
+
+        let audio = new Audio("audio/scan.mp3");
+
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        scanner.addListener('scan', function (content) {
+            audio.play();
+            console.log(content);
+            scanner.stop();
+            document.getElementById('resultDiv').innerHTML = "QRCode Content:<br /><br />" + content;
+            document.getElementById('preview').style.display = 'none';
+            document.getElementById('resultDiv').style.display = 'block';
+            document.getElementById('startBtuuon').style.display = 'block';
+        });
+
+        function openQRCodeScanner() {
+            Instascan.Camera.getCameras().then(function (cameras) {
+                if (cameras.length > 0) {
+                  scanner.start(cameras[0]);
+                } else {
+                  console.error('No cameras found.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        }
+
+        function startBtuuon_click() {
+            document.getElementById('resultDiv').style.display = 'none';
+            document.getElementById('startBtuuon').style.display = 'none';
+            document.getElementById('preview').style.display = 'block';
+            openQRCodeScanner();
+        }
+    </script>
+</body>
+</html>
