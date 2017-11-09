@@ -241,7 +241,7 @@ function countTimeAndFetchFace() {
         clearInterval(countFrequencyOfFaceDetectTimerId);
     }
 
-    var countSec = 1;
+    var countSec = 0;
     var fetchTime = 0;
     autoFetchFaceImageTimerId = setInterval(function(){
         let sec = (countSec >= 0) ? countSec : 0;
