@@ -184,10 +184,14 @@ drawAnalysisCanvasLines();
 var autoFetchFaceImageTimerId = null;
 var countFrequencyOfFaceDetectTimerId = null;
 
+var myAudio = document.getElementById('myAudio');
 
 function switchChange(e) {
     //console.log(e.checked);
     if (e.checked) {
+        myAudio.play();
+        myAudio.pause();
+
         countFrequencyOfFaceDetect();
     } else {
         if (autoFetchFaceImageTimerId) {
@@ -275,6 +279,7 @@ function autoFetchFaceImage() {
 
     if (FaceCompWidth > 130 && FaceCompHeight > 130) {
         if (faceCenterX >= rangeW && faceCenterX <= (rangeW*3)) {
+            myAudio.play();
             takeSnapshotBtuuon_click();
         }
     }
