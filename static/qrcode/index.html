@@ -11,6 +11,10 @@
     <div id="resultDiv" style="display:none;"></div>
     <button id="startBtuuon" onclick="startBtuuon_click()" style="display:block;">QRCode Scan</button>
 
+    <audio id="myAudio" style="display:none;">
+        <source src="audio/scan.mp3">
+    </audio>
+
     <script type="text/javascript">
         document.getElementById('preview').style.width = window.innerWidth + "px";
         document.getElementById('preview').style.height = window.innerHeight + "px";
@@ -19,7 +23,7 @@
         startBtuuon.style.top = ((window.innerHeight/2) - (50/2)) + "px";
         startBtuuon.style.left = ((window.innerWidth/2) - (200/2)) + "px";
 
-        let audio = new Audio("audio/scan.mp3");
+        let audio = document.getElementById('myAudio');
 
         startBtuuon.addEventListener("click", function() {
             audio.play();
