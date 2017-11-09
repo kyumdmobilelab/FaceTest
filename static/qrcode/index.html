@@ -25,10 +25,10 @@
 
         let audio = document.getElementById('myAudio');
 
-        startBtuuon.addEventListener("click", function() {
-            audio.play();
-            audio.pause();
-        });
+        // startBtuuon.addEventListener("click", function() {
+        //     audio.play();
+        //     audio.pause();
+        // });
 
         let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
         scanner.addListener('scan', function (content) {
