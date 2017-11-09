@@ -15,7 +15,7 @@ body {
 #bgViewDiv {
     position: relative;
     width: 1200px;
-    height: 770px;
+    height: 790px;
     margin-left: auto;
     margin-right: auto;
     background-color: rgb(248, 248, 248);
@@ -191,13 +191,13 @@ body {
 #mainDiv {
     position: absolute;
     width: 500px;
-    top: 80px;
+    top: 90px;
 }
 
 #recommendDiv {
     position: absolute;
     width: 500px;
-    top: 80px;
+    top: 90px;
     right: 60px;
     border: 1.5px solid #4CAF50;
     border-radius: 10px;
