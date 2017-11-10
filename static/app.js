@@ -215,16 +215,15 @@ function countFrequencyOfFaceDetect() {
         let rangeW = w/4;
         let faceCenterX = FaceCompX + (FaceCompWidth/2);
     
-        if ((FaceCompWidth > 100 && FaceCompHeight > 100) && (faceCenterX >= rangeW && faceCenterX <= (rangeW*3))) {
+        if ((FaceCompWidth > 80 && FaceCompHeight > 80) && (faceCenterX >= rangeW && faceCenterX <= (rangeW*3))) {
             detectTime++;
-            
         } else {
             detectTime--;
         }
 
         console.log("countFrequencyOfFaceDetect, faceOutTime: " + detectTime);
         
-        if (detectTime >= 3) {
+        if (detectTime >= 2) {
             countTimeAndFetchFace();
         } else if (detectTime < 0) {
             detectTime = 0;
@@ -269,7 +268,7 @@ function autoFetchFaceImage() {
     let rangeW = w/4;
     let faceCenterX = FaceCompX + (FaceCompWidth/2);
 
-    if (FaceCompWidth > 100 && FaceCompHeight > 100) {
+    if (FaceCompWidth > 80 && FaceCompHeight > 80) {
         if (faceCenterX >= rangeW && faceCenterX <= (rangeW*3)) {
             myAudio.play();
             takeSnapshotBtuuon_click();
@@ -394,7 +393,7 @@ function showResultValues() {
 
 
     if (!resultJSON) {
-        countTime = 3;
+        countTime = 1;
         document.getElementById('otherMsgTitle').innerText = "[ 分析失敗!! ]";
         document.getElementById('otherMsgTitle').style.color = "#3C3C3C";
         document.getElementById('otherMsgTitle').style.display = 'block';
@@ -409,7 +408,7 @@ function showResultValues() {
         document.getElementById('otherMsgTitle').innerText = "[ 分析結果 ]";
         document.getElementById('otherMsgTitle').style.color = "#FCFCFC";
     } else {
-        countTime = 3;
+        countTime = 1;
         document.getElementById('otherMsgTitle').innerText = "[ 分析失敗!! ]";
         document.getElementById('otherMsgTitle').style.color = "#3C3C3C";
         document.getElementById('otherMsgTitle').style.display = 'block';
