@@ -44,11 +44,11 @@
             setTimeout(function(){
                 document.getElementById('resultDiv').innerHTML = "QRCode Content:<br /><br />" + content;
                 document.getElementById('preview').style.display = 'none';
-                $('#resultDiv').show('show');
+                $('#resultDiv').slideDown();
                 $('#startBtuuon').fadeIn();
                 //document.getElementById('resultDiv').style.display = 'block';
                 //document.getElementById('startBtuuon').style.display = 'block';
-            }, 200);
+            }, 300);
         });
 
         function openQRCodeScanner() {
