@@ -238,6 +238,13 @@ th {
     margin-bottom: 3px;
     margin-left: 5px;
     margin-right: 5px;
+    width:100px; 
+    height:100px;
+}
+
+strong {
+    font-size:1.3em;
+    font-weight:bold;
 }
 
 #recommendTable {

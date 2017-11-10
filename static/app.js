@@ -281,7 +281,7 @@ function takeSnapshotBtuuon_click() {
     if (countFrequencyOfFaceDetectTimerId) {
         clearInterval(countFrequencyOfFaceDetectTimerId);
     }
-    
+
     if (autoFetchFaceImageTimerId) {
         clearInterval(autoFetchFaceImageTimerId);
         document.getElementById('countSecond').innerText = "";
@@ -484,8 +484,7 @@ function showResultValues() {
     document.getElementById('bgbgImage').style.display = 'block';
 
     settingMyProperties();
-
-    //document.getElementById('recommendDiv').style.display = 'block';
+    settingRecommendTable(aData);
 }
 
 function drawAnalysisCanvasLines() {
@@ -1168,4 +1167,112 @@ function settingMyProperties() {
     document.getElementById('myProperty6').style.display = "block";
 
     document.getElementById('analysisCanvas').style.display = "block";
+}
+
+
+function settingRecommendTable(data) {
+    if (data["age"] > 50) {
+        //1
+        document.getElementById('rImg1').src = 'images/ginkgo.jpg';
+        document.getElementById('rName1').innerHTML = '銀杏';
+        document.getElementById('rPrice1').innerHTML = '原價 2000 元，<br/>現在特價<strong> 1499 </strong>元。';
+
+        //2
+        document.getElementById('rImg2').src = 'images/readingglasses.jpg';
+        document.getElementById('rName2').innerHTML = '老花眼鏡';
+        document.getElementById('rPrice2').innerHTML = '原價 1500 元，<br/>現在特價<strong> 1099 </strong>元。';
+
+        //3
+        document.getElementById('rImg3').src = 'images/crutch.jpg';
+        document.getElementById('rName3').innerHTML = '伸缩拐杖老人手杖';
+        document.getElementById('rPrice3').innerHTML = '原價 3500 元，<br/>現在特價<strong> 2999 </strong>元。';
+
+        //4
+        document.getElementById('rImg4').src = 'images/lanew01.jpg';
+        document.getElementById('rName4').innerHTML = 'Lanew 健走鞋';
+        document.getElementById('rPrice4').innerHTML = '原價 3000 元，<br/>現在特價<strong> 2490 </strong>元。';
+
+        //5
+        document.getElementById('rImg5').src = 'images/Swiss_watch.jpg';
+        document.getElementById('rName5').innerHTML = '瑞士手錶';
+        document.getElementById('rPrice5').innerHTML = '原價 34500 元，<br/>現在特價<strong> 30000 </strong>元。';
+    }
+    else if (data["age"] >= 40) {
+        //1
+        document.getElementById('rImg1').src = 'images/chewing_gum.jpg';
+        document.getElementById('rName1').innerHTML = '記憶力增強口香糖';
+        document.getElementById('rPrice1').innerHTML = '原價 150 元，<br/>現在特價<strong> 99 </strong>元。';
+
+        //2
+        document.getElementById('rImg2').src = 'images/leather_shoes01.jpg';
+        document.getElementById('rName2').innerHTML = '高級皮鞋';
+        document.getElementById('rPrice2').innerHTML = '原價 2500 元，<br/>現在特價<strong> 2049 </strong>元。';
+
+        //3
+        document.getElementById('rImg3').src = 'images/book.jpg';
+        document.getElementById('rName3').innerHTML = '《怦然心動的人生整理魔法》';
+        document.getElementById('rPrice3').innerHTML = '原價 250 元，<br/>現在特價<strong> 188 </strong>元。';
+
+        //4
+        document.getElementById('rImg4').src = 'images/perfume.jpg';
+        document.getElementById('rName4').innerHTML = '香水';
+        document.getElementById('rPrice4').innerHTML = '原價 1200 元，<br/>現在特價<strong> 1000 </strong>元。';
+
+        //5
+        document.getElementById('rImg5').src = 'images/Set_clothes.jpg';
+        document.getElementById('rName5').innerHTML = '高級套裝';
+        document.getElementById('rPrice5').innerHTML = '原價 3200 元，<br/>現在特價<strong> 2950 </strong>元。';
+    }
+    else if (data["age"] >= 30) {
+        //1
+        document.getElementById('rImg1').src = 'images/Set_clothes02.jpg';
+        document.getElementById('rName1').innerHTML = '運動套裝';
+        document.getElementById('rPrice1').innerHTML = '原價 1800 元，<br/>現在特價<strong> 1249 </strong>元。';
+
+        //2
+        document.getElementById('rImg2').src = 'images/jogging_shoes.jpg';
+        document.getElementById('rName2').innerHTML = '慢跑鞋';
+        document.getElementById('rPrice2').innerHTML = '原價 1500 元，<br/>現在特價<strong> 1099 </strong>元。';
+
+        //3
+        document.getElementById('rImg3').src = 'images/digital_watch.JPG';
+        document.getElementById('rName3').innerHTML = '電子運動錶';
+        document.getElementById('rPrice3').innerHTML = '原價 6500 元，<br/>現在特價<strong> 5000 </strong>元。';
+
+        //4
+        document.getElementById('rImg4').src = 'images/vitamin.jpg';
+        document.getElementById('rName4').innerHTML = '維他命C';
+        document.getElementById('rPrice4').innerHTML = '原價 990 元，<br/>現在特價<strong> 790 </strong>元。';
+
+        //5
+        document.getElementById('rImg5').src = 'images/book.jpg';
+        document.getElementById('rName5').innerHTML = '《怦然心動的人生整理魔法》';
+        document.getElementById('rPrice5').innerHTML = '原價 250 元，<br/>現在特價<strong> 188 </strong>元。';
+    } 
+    else {
+        //1
+        document.getElementById('rImg1').src = 'images/coke.jpg';
+        document.getElementById('rName1').innerHTML = '可口可樂';
+        document.getElementById('rPrice1').innerHTML = '原價 100 元，<br/>現在特價<strong> 89 </strong>元。';
+
+        //2
+        document.getElementById('rImg2').src = 'images/sunglasses.jpg';
+        document.getElementById('rName2').innerHTML = '新潮墨鏡';
+        document.getElementById('rPrice2').innerHTML = '原價 1500 元，<br/>現在特價<strong> 990 </strong>元。';
+
+        //3
+        document.getElementById('rImg3').src = 'images/book.jpg';
+        document.getElementById('rName3').innerHTML = '《怦然心動的人生整理魔法》';
+        document.getElementById('rPrice3').innerHTML = '原價 250 元，<br/>現在特價<strong> 188 </strong>元。';
+
+        //4
+        document.getElementById('rImg4').src = 'images/sneakers.jpg';
+        document.getElementById('rName4').innerHTML = '喬丹籃球鞋';
+        document.getElementById('rPrice4').innerHTML = '原價 5000 元，<br/>現在特價<strong> 3990 </strong>元。';
+
+        //5
+        document.getElementById('rImg5').src = 'images/t-shirt.jpg';
+        document.getElementById('rName5').innerHTML = '名牌潮T';
+        document.getElementById('rPrice5').innerHTML = '原價 1200 元，<br/>現在特價<strong> 890 </strong>元。';
+    }
 }
