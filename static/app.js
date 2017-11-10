@@ -215,7 +215,7 @@ function countFrequencyOfFaceDetect() {
         let rangeW = w/4;
         let faceCenterX = FaceCompX + (FaceCompWidth/2);
     
-        if ((FaceCompWidth > 130 && FaceCompHeight > 130) && (faceCenterX >= rangeW && faceCenterX <= (rangeW*3))) {
+        if ((FaceCompWidth > 100 && FaceCompHeight > 100) && (faceCenterX >= rangeW && faceCenterX <= (rangeW*3))) {
             detectTime++;
             
         } else {
@@ -269,7 +269,7 @@ function autoFetchFaceImage() {
     let rangeW = w/4;
     let faceCenterX = FaceCompX + (FaceCompWidth/2);
 
-    if (FaceCompWidth > 130 && FaceCompHeight > 130) {
+    if (FaceCompWidth > 100 && FaceCompHeight > 100) {
         if (faceCenterX >= rangeW && faceCenterX <= (rangeW*3)) {
             myAudio.play();
             takeSnapshotBtuuon_click();
