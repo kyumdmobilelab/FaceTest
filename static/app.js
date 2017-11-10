@@ -221,7 +221,7 @@ function countFrequencyOfFaceDetect() {
         } else {
             detectTime--;
         }
-        
+
         console.log("countFrequencyOfFaceDetect, faceOutTime: " + detectTime);
         
         if (detectTime >= 3) {
@@ -238,29 +238,24 @@ function countTimeAndFetchFace() {
         clearInterval(countFrequencyOfFaceDetectTimerId);
     }
 
-    var countSec = 0;
     var fetchTime = 0;
     autoFetchFaceImageTimerId = setInterval(function(){
-        let sec = (countSec >= 0) ? countSec : 0;
-        document.getElementById('countSecond').innerText = sec + " 秒後抓取臉部，請將您的臉面向鏡頭...";
-        
-        if (countSec <= 0) {
-            if (fetchTime >= 12) {
-                if (autoFetchFaceImageTimerId) {
-                    clearInterval(autoFetchFaceImageTimerId);
-                    document.getElementById('countSecond').innerText = "";
+        if (fetchTime >= 12) {
+            if (autoFetchFaceImageTimerId) {
+                clearInterval(autoFetchFaceImageTimerId);
+                document.getElementById('countSecond').innerText = "";
 
-                    if (document.getElementById('switch_checkbox').checked) {
-                        countFrequencyOfFaceDetect();
-                    }
-                    
-                    return;
+                if (document.getElementById('switch_checkbox').checked) {
+                    countFrequencyOfFaceDetect();
                 }
+                
+                return;
             }
-            autoFetchFaceImage();
+        } else {
             fetchTime++;
+            autoFetchFaceImage();
         }
-        countSec--;
+
     }, 1000);
 }
 
@@ -283,6 +278,10 @@ function autoFetchFaceImage() {
 }
 
 function takeSnapshotBtuuon_click() {
+    if (countFrequencyOfFaceDetectTimerId) {
+        clearInterval(countFrequencyOfFaceDetectTimerId);
+    }
+    
     if (autoFetchFaceImageTimerId) {
         clearInterval(autoFetchFaceImageTimerId);
         document.getElementById('countSecond').innerText = "";
@@ -294,7 +293,6 @@ function takeSnapshotBtuuon_click() {
     document.getElementById('otherMsgTitle').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'none';
     document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
-    //document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#f8f8f8, #f8f8f8)';
     document.getElementById('bgbgImage').style.display = 'none';
 
     const myFirstPromise = new Promise((resolve, reject) => {
