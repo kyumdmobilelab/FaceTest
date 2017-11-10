@@ -208,35 +208,28 @@ function switchChange(e) {
 }
 
 function countFrequencyOfFaceDetect() {
-    var countSec = 4;
     var detectTime = 0;
 
     countFrequencyOfFaceDetectTimerId  = setInterval(function(){
-        console.log("countFrequencyOfFaceDetect: " + countSec)
-
         let w = localVideo.videoWidth;
         let rangeW = w/4;
         let faceCenterX = FaceCompX + (FaceCompWidth/2);
     
-        if (FaceCompWidth > 130 && FaceCompHeight > 130) {
-            if (faceCenterX >= rangeW && faceCenterX <= (rangeW*3)) {
-                detectTime++;
-                console.log("countFrequencyOfFaceDetect, faceOutTime: " + detectTime)
-            }
+        if ((FaceCompWidth > 130 && FaceCompHeight > 130) && (faceCenterX >= rangeW && faceCenterX <= (rangeW*3))) {
+            detectTime++;
+            
+        } else {
+            detectTime--;
         }
-
-        if (countSec < 0) {
-            if (detectTime >= 3) {
-                countTimeAndFetchFace();
-            } else {
-                countSec = 5;
-                detectTime = 0;
-            }
-        } else if (countSec == 2 && detectTime >= 3) {
+        
+        console.log("countFrequencyOfFaceDetect, faceOutTime: " + detectTime);
+        
+        if (detectTime >= 3) {
             countTimeAndFetchFace();
+        } else if (detectTime < 0) {
+            detectTime = 0;
         }
 
-        countSec--;
     }, 1000);
 }
 
@@ -348,7 +341,12 @@ function againDetectBtuuon_click() {
         clearInterval(showResultCountTimerId);
     }
 
+    $('#mainDiv').hide();
+    $('#recommendDiv').hide();
+
     mainDiv.style.left = (1200/2 - 500/2) + "px";
+
+    $('#mainDiv').slideDown();
 
     document.getElementById('panelDiv').style.display = 'block';
     document.getElementById('progressDiv').style.display = 'none';
@@ -357,13 +355,13 @@ function againDetectBtuuon_click() {
     document.getElementById('frameDiv').style.borderWidth = '0px';
 
     document.getElementById('frameDiv').style.backgroundColor = '#f8f8f8';
-    //document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#f8f8f8, #f8f8f8)';
+    
     document.getElementById('bgbgImage').style.display = 'none';;
 
     document.getElementById('againDetectBtuuon').style.display = 'none';
     document.getElementById('showResultTimeCount').style.display = 'none';
     document.getElementById('chooseCameraDiv').style.display = 'block';
-    document.getElementById('recommendDiv').style.display = 'none';
+    //document.getElementById('recommendDiv').style.display = 'none';
 
     document.getElementById('analysisTitle').style.display = 'none';
     document.getElementById('myProperty1').style.display = "none";
@@ -471,23 +469,25 @@ function showResultValues() {
         "surprise" : emotionInfo["surprise"]
     };
 
+
+    $('#mainDiv').hide();
     mainDiv.style.left = "60px";
 
     analysisData(aData);
+
+    $('#mainDiv').slideDown();
+    $('#recommendDiv').slideDown();
 
     document.getElementById('progressDiv').style.display = 'none';
     document.getElementById('resultDiv').style.display = 'block';
     document.getElementById('otherMsgTitle').style.display = 'block';
     document.getElementById('frameDiv').style.borderWidth = '1px';
     document.getElementById('againDetectBtuuon').style.display = 'block';
-
-    //document.getElementById('frameDiv').style.backgroundImage = 'linear-gradient(#005757, #00E3E3)';
     document.getElementById('bgbgImage').style.display = 'block';
-
 
     settingMyProperties();
 
-    document.getElementById('recommendDiv').style.display = 'block';
+    //document.getElementById('recommendDiv').style.display = 'block';
 }
 
 function drawAnalysisCanvasLines() {
