@@ -378,10 +378,10 @@ function againDetectBtuuon_click() {
 var showResultCountTimerId = null;
 
 function showResultValues() {
-    var countTime = 20;
+    var countTime = 15;
 
     showResultCountTimerId = setInterval(function(){
-        if (countTime < 11) {
+        if (countTime < 10) {
             document.getElementById('showResultTimeCount').innerText = countTime + " 秒後關閉分析結果...";
             document.getElementById('showResultTimeCount').style.display = 'block';
         }
