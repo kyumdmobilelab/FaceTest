@@ -25,10 +25,14 @@
         startBtuuon.style.left = ((window.innerWidth/2) - (250/2)) + "px";
 
         let audio = document.getElementById('myAudio');
+        let isMyAudioPlayHack = false;
 
         startBtuuon.addEventListener("click", function() {
-            audio.play();
-            audio.pause();
+            if (isMyAudioPlayHack === false) {
+                audio.play();
+                audio.pause();
+                isMyAudioPlayHack = true;
+            }
         });
 
         let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });

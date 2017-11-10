@@ -185,12 +185,16 @@ var autoFetchFaceImageTimerId = null;
 var countFrequencyOfFaceDetectTimerId = null;
 
 var myAudio = document.getElementById('myAudio');
+var isMyAudioPlayHack = false;
 
 function switchChange(e) {
     //console.log(e.checked);
     if (e.checked) {
-        myAudio.play();
-        myAudio.pause();
+        if (isMyAudioPlayHack === false) {
+            myAudio.play();
+            myAudio.pause();
+            isMyAudioPlayHack = true;
+        }
 
         countFrequencyOfFaceDetect();
     } else {
